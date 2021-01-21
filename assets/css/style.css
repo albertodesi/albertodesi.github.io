@@ -263,6 +263,13 @@ h1, h2, h3, h4, h5, h6 {
     padding-left: 160px;
   }
 }
+@media only screen and (max-width: 767px) {
+  #hero {
+    /* The file size of this background image is 93% smaller
+       to improve page load speed on mobile internet connections */
+    background-image: url("../img/hero-bg-mobile.webp");
+  }
+}
 
 #hero:before {
   content: "";
