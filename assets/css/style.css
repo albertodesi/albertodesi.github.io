@@ -240,7 +240,7 @@ h1, h2, h3, h4, h5, h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("../img/hero-bg.webp") top right no-repeat;
+  /*background: url("../img/hero-bg.webp") top right no-repeat;*/
   background-size: cover;
   position: relative;
 }
@@ -253,8 +253,8 @@ h1, h2, h3, h4, h5, h6 {
 @media only screen and (max-width: 767px) {
   #hero {
     /* The file size of this background image is 93% smaller
-       to improve page load speed on mobile internet connections */
-    background-image: url("../img/hero-bg-mobile.webp");
+       to improve page load speed on mobile internet connections
+    background-image: url("../img/hero-bg-mobile.webp"); */
   }
 }
 
