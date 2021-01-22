@@ -57,11 +57,24 @@
 		<a href="https://www.facebook.com/alberto.desi/" class="facebook" name="facebook"><i class="bx bxl-facebook"></i></a>
 		<a href="http://www.hooli.xyz/" rel="noopener" target="_blank" class="hidden-link"></a>
 	    <a href="https://www.instagram.com/albertodesi/" class="instagram" name="instagram"><i class="bx bxl-instagram"></i></a>
+		<!--<a href="skype:alberto.desi?chat" class="skype"><i class="bx bxl-skype" name="skype"></i></a>
+        <a href="https://twitter.com/albertodesi" class="twitter"><i class="bx bxl-twitter" name="twitter"></i></a>-->
 		<a href="http://www.lphishiring.com/" rel="noopener" target="_blank" class="hidden-link"></a>
 		<a href="mailto:info@alberto.desi" class="email"><i class="bx bx-mail-send" name="email"></i></a>
 	  </div>
     </div>
   </section><!-- End Hero -->
+
+  <!-- ======= Main Section =======
+  <main id="main">
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= 
+  <footer id="footer">
+    <div class="container">
+      <div class="credits"></div>
+    </div>
+  </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
   <div id="preloader"></div>
