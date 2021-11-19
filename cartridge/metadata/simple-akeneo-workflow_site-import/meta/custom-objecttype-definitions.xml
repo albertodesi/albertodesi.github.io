@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+	
+	<custom-type type-id="AkeneoTopLevelCategoriesCode">
+        <display-name xml:lang="x-default">AkeneoTopLevelCategoriesCode</display-name>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <key-definition attribute-id="ID">
+            <type>string</type>
+            <min-length>0</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="categoriesCodes">
+                <display-name xml:lang="x-default">CategoriesCodes</display-name>
+                <type>text</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="subCategoriesCodes">
+                <display-name xml:lang="x-default">subCategoriesCodes</display-name>
+                <type>text</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="General">
+                <display-name xml:lang="x-default">General</display-name>
+                <attribute attribute-id="creationDate" system="true"/>
+                <attribute attribute-id="categoriesCodes"/>
+                <attribute attribute-id="lastModified" system="true"/>
+                <attribute attribute-id="ID"/>
+                <attribute attribute-id="subCategoriesCodes"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+    
+    <custom-type type-id="AkeneoRunTime">
+        <display-name xml:lang="x-default">Akeneo Run Time</display-name>
+        <description xml:lang="x-default">Run time values</description>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>organization</storage-scope>
+        <key-definition attribute-id="ID">
+            <type>string</type>
+            <min-length>0</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="lastImportedTime">
+                <display-name xml:lang="x-default">Last Imported Time</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="isFullImport">
+                <display-name xml:lang="x-default">Is Full Import?</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="general">
+                <display-name xml:lang="x-default">General</display-name>
+                <attribute attribute-id="ID"/>
+                <attribute attribute-id="lastImportedTime"/>
+                <attribute attribute-id="isFullImport"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+
+    <custom-type type-id="AkeneoToken">
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <key-definition attribute-id="ID">
+            <type>string</type>
+            <min-length>0</min-length>
+        </key-definition>
+        <attribute-definitions>
+        	<attribute-definition attribute-id="serviceGeneralURL">
+                <display-name xml:lang="x-default">ServiceGeneralURL</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="token">
+                <display-name xml:lang="x-default">Token</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="tokenExpiryTime">
+                <display-name xml:lang="x-default">Token Expiry Time</display-name>
+                <type>double</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="General">
+                <display-name xml:lang="x-default">General</display-name>
+                <attribute attribute-id="ID"/>
+                <attribute attribute-id="tokenExpiryTime"/>
+                <attribute attribute-id="lastModified" system="true"/>
+                <attribute attribute-id="token"/>
+                <attribute attribute-id="creationDate" system="true"/>
+                <attribute attribute-id="serviceGeneralURL"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+
+</metadata>

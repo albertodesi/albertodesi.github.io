@@ -1,0 +1,983 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
+    <job job-id="1-Akeneo-Import-Attributes" priority="0">
+        <description>Workflow of Akeneo attributes and attributes options import</description>
+        <parameters/>
+        <split sequential="false">
+            <flow>
+                <context site-id="RefArch"/>
+                <step step-id="job-workflow-step-attributes" type="ExecuteScriptModule" enforce-restart="false">
+                    <description>Calls akeneo attributes API and creates XML</description>
+                    <parameters>
+                        <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                        <parameter name="ExecuteScriptModule.FunctionName">getAttributes</parameter>
+                        <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    </parameters>
+                </step>
+                <step step-id="job-workflow-step-prepare-attributes-import" type="ExecuteScriptModule" enforce-restart="false">
+                    <description>Compiles the XMLs into importable Zip archive</description>
+                    <parameters>
+                        <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                        <parameter name="ExecuteScriptModule.FunctionName">prepareImport</parameter>
+                        <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                        <parameter name="AkeneoFluxPath">Impex/src/akeneo/attributes</parameter>
+                    </parameters>
+                </step>
+            </flow>
+            <flow>
+                <context site-id="Sites"/>
+                <step step-id="job-workflow-step-attributes-import" type="ImportSiteArchive" enforce-restart="false">
+                    <description>Imports the Zip file using ImportSiteArchive step</description>
+                    <parameters>
+                        <parameter name="ImportFile">import-meta-data-akeneo.zip</parameter>
+                        <parameter name="ImportMode">merge</parameter>
+                    </parameters>
+                </step>
+            </flow>
+        </split>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2017-10-01Z</date>
+                <time>12:35:54.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="2-1-Akeneo-Differential-Import-Assets" priority="0">
+        <description>(Only for PIM version &gt;= 4.0) This job will upload the differential of assets from akeneo PIM into the SFCC server</description>
+        <parameters />
+        <flow>
+            <context site-id="RefArch" />
+            <step step-id="job-workflow-step-set-temporary-timestamp" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets temporary timestamp in Custom Cache</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setTemporaryTimestamp</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoAssetRunTime</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-set-import-type" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets import type in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setImportType</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoAssetRunTime</parameter>
+                    <parameter name="IsFullImport">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-clear-impex-directory" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Clear the Impex location and archives files from previous failed runs</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">clearImpexLocation</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-assets" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Calls akeneo assets API to download asset files</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">getAssetsFiles</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="AkeneoAssetUrl">/api/rest/v1/assets</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-prepare-asset-attributes-import" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Compiles the XMLs into importable Zip archive</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">prepareImport</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="AkeneoFluxPath">Impex/src/akeneo/asset-attributes</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-update-products-cache" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Creates the cache for products related to changed assets</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/updateProducts.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">updateProducts</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-set-imported-time" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets imported time in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setLastImportedTime</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoAssetRunTime</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="Sites" />
+            <step step-id="job-workflow-step-asset-attributes-import" type="ImportSiteArchive" enforce-restart="false">
+                <description>Imports the Zip file using ImportSiteArchive step</description>
+                <parameters>
+                    <parameter name="ImportFile">import-meta-data-akeneo.zip</parameter>
+                    <parameter name="ImportMode">merge</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules />
+        <triggers>
+            <run-once enabled="false">
+                <date>2017-10-01Z</date>
+                <time>12:35:54.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="2-2-Akeneo-Full-Import-Media-Assets-Pricebook" priority="0">
+        <description>This job will upload the image, assets and pricebook data from akeneo PIM into the SFCC server with no differential on last modified time</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-set-temporary-timestamp" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets temporary timestamp in Custom Cache</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setTemporaryTimestamp</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoAssetRunTime</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-set-import-type" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets import type in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setImportType</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoAssetRunTime</parameter>
+                    <parameter name="IsFullImport">true</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-clear-impex-directory" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Clear the Impex location and archives files from previous failed runs</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">clearImpexLocation</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-clear-asset-cache" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Clear asset custom cache for full import</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">clearAssetCache</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-media-files" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Calls akeneo media API to download media files</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">getMediaFiles</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="AkeneoMediaUrl">/api/rest/v1/media-files</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-assets" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Calls akeneo assets API to download asset files</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">getAssetsFiles</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="AkeneoAssetUrl">/api/rest/v1/assets</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-prepare-asset-attributes-import" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Compiles the XMLs into importable Zip archive</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">prepareImport</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="AkeneoFluxPath">Impex/src/akeneo/asset-attributes</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-pricebook" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Calls akeneo products API to create priceBook Xml</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">priceBookXml</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-set-imported-time" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets imported time in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setLastImportedTime</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoAssetRunTime</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="Sites"/>
+            <step step-id="job-workflow-step-pricebook-import" type="ImportPriceBook" enforce-restart="false">
+                <description>Imports the priceBook XML using ImportPriceBook step</description>
+                <parameters>
+                    <parameter name="WorkingFolder">akeneo/pricebook</parameter>
+                    <parameter name="FileNamePattern">pricebook-akeneo-(.*).xml</parameter>
+                    <parameter name="NoFilesFoundHandling">WARN</parameter>
+                    <parameter name="ImportMode">Merge</parameter>
+                    <parameter name="ImportFailedHandling">WARN</parameter>
+                    <parameter name="AfterImportFileHandling">Archive</parameter>
+                    <parameter name="ArchiveFolder">src/akeneo/pricebook/archives</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-asset-attributes-import" type="ImportSiteArchive" enforce-restart="false">
+                <description>Imports the Zip file using ImportSiteArchive step</description>
+                <parameters>
+                    <parameter name="ImportFile">import-meta-data-akeneo.zip</parameter>
+                    <parameter name="ImportMode">merge</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2017-10-01Z</date>
+                <time>12:35:54.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="3-1-1-Akeneo-Differential-Import-Master" priority="0">
+        <description>This job is to import the differential of system attributes, custom attributes related to Products and Master Products and their relation</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-set-temporary-timestamp" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets temporary timestamp in Custom Cache</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setTemporaryTimestamp</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-set-import-type" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets import type in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setImportType</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                    <parameter name="IsFullImport">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-clear-family-variants-cache" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Clear the akeneo family variants and other general cache from previous runs</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">clearFamilyVariantsCache</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-clear-impex-directory" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Clear the Impex location and archives files from previous failed runs</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">clearImpexLocation</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-categories-custom-objects" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Connect to the akeneo api and gets the categories and stores in custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/createCategoriesCustomObject.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">saveCategoriesCO</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-create-model-products-cache" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Connect to the akeneo api and store master products details in custom cache</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/createModelProductsCache.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">getModelProducts</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-products" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Connect to the akeneo api and store variation products details into its respective master custom cache and create an xml for system sttributes and custom attributes</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/productsCatalog.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">createProductsXml</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-master-products" type="ExecuteScriptModule" enforce-restart="false">
+                <description>create an xml for system sttributes and custom attributes of master products</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/modelProdCatalog.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">createModelCatalog</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-products-master-variation-attributes" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Create master products variations attributes xml</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/modelVariationRelation.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">createMasterVarCatalog</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-products-images" type="ExecuteScriptModule" enforce-restart="false">
+                <description>create an xml for images of  products</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generateImages.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">createMediaXml</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="Sites"/>
+            <step step-id="job-workflow-step-import-catalog" type="ImportCatalog" enforce-restart="false">
+                <description>Imports the catalogs generated in previous steps using ImportCatalog step</description>
+                <parameters>
+                    <parameter name="WorkingFolder">akeneo/catalog</parameter>
+                    <parameter name="FileNamePattern">catalog-akeneo-(.*).xml</parameter>
+                    <parameter name="NoFilesFoundHandling">WARN</parameter>
+                    <parameter name="ImportMode">Merge</parameter>
+                    <parameter name="ImportFailedHandling">WARN</parameter>
+                    <parameter name="AfterImportFileHandling">Archive</parameter>
+                    <parameter name="ArchiveFolder">src/akeneo/catalog/archives/imported</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-rebuild-products-index" type="SearchReindex" enforce-restart="false">
+                <description>Rebuilds product indexes using SearchReindex step</description>
+                <parameters>
+                    <parameter name="Product related search indexes">true</parameter>
+                    <parameter name="Active data search index">false</parameter>
+                    <parameter name="Content search index">false</parameter>
+                    <parameter name="Indexer Type">Full Index Rebuild</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2017-10-01Z</date>
+                <time>12:35:54.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="3-1-2-Akeneo-Differential-Import-Storefront" priority="0">
+        <description>This job is to import the differential of categories, product category assignments and product associations</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-set-import-type" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets import type in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setImportType</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                    <parameter name="IsFullImport">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-clear-impex-directory" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Clear the Impex location and archives files from previous failed runs</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">clearImpexLocation</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-storefront-catalog" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Calls Akeneo API and creates categories XML</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/createCategoriesXml.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">writeCategoriesXml</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-product-category-association" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Creates category assignments and associations for products and product models</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/productCategoryAndAssociation.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">createCategoryAssociationXml</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="Sites"/>
+            <step step-id="job-workflow-step-import-catalog" type="ImportCatalog" enforce-restart="false">
+                <description>Imports the catalogs generated in previous steps using ImportCatalog step</description>
+                <parameters>
+                    <parameter name="WorkingFolder">akeneo/catalog</parameter>
+                    <parameter name="FileNamePattern">catalog-akeneo-(.*).xml</parameter>
+                    <parameter name="NoFilesFoundHandling">WARN</parameter>
+                    <parameter name="ImportMode">Merge</parameter>
+                    <parameter name="ImportFailedHandling">WARN</parameter>
+                    <parameter name="AfterImportFileHandling">Archive</parameter>
+                    <parameter name="ArchiveFolder">src/akeneo/catalog/archives/imported</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-set-imported-time" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets imported time in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setLastImportedTime</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-rebuild-products-index" type="SearchReindex" enforce-restart="false">
+                <description>Rebuilds product indexes using SearchReindex step</description>
+                <parameters>
+                    <parameter name="Product related search indexes">true</parameter>
+                    <parameter name="Active data search index">false</parameter>
+                    <parameter name="Content search index">false</parameter>
+                    <parameter name="Indexer Type">Full Index Rebuild</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2019-08-06Z</date>
+                <time>09:12:36.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="3-2-1-Akeneo-Full-Import-Master" priority="0">
+        <description>This job is to import the System attributes and Custom attributes related to Products and Master Products with no differential on last modified date</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-set-temporary-timestamp" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets temporary timestamp in Custom Cache</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setTemporaryTimestamp</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-set-import-type" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets import type in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setImportType</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                    <parameter name="IsFullImport">true</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-clear-family-variants-cache" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Clear the akeneo family variants custom cache</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">clearFamilyVariantsCache</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-clear-impex-directory" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Clear the Impex location and archives files from previous failed runs</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">clearImpexLocation</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-clear-model-products-cache" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Clear existing model products list from custom cache</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">clearModelProductsCache</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-categories-custom-objects" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Connect to the akeneo api and gets the categories and stores in custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/createCategoriesCustomObject.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">saveCategoriesCO</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-create-model-products-cache" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Connect to the akeneo api and store master products details in custom cache</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/createModelProductsCache.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">getModelProducts</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-products" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Connect to the akeneo api and store variation products details into its respective master custom cache and create an xml for system sttributes and custom attributes</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/productsCatalog.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">createProductsXml</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-master-products" type="ExecuteScriptModule" enforce-restart="false">
+                <description>create an xml for system sttributes and custom attributes of master products</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/modelProdCatalog.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">createModelCatalog</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="Sites"/>
+            <step step-id="job-workflow-step-import-catalog" type="ImportCatalog" enforce-restart="false">
+                <description>Imports the catalogs generated in previous steps using ImportCatalog step</description>
+                <parameters>
+                    <parameter name="WorkingFolder">akeneo/catalog</parameter>
+                    <parameter name="FileNamePattern">catalog-akeneo-(.*).xml</parameter>
+                    <parameter name="NoFilesFoundHandling">WARN</parameter>
+                    <parameter name="ImportMode">Merge</parameter>
+                    <parameter name="ImportFailedHandling">WARN</parameter>
+                    <parameter name="AfterImportFileHandling">Archive</parameter>
+                    <parameter name="ArchiveFolder">src/akeneo/catalog/archives/imported</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-set-imported-time" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets imported time in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setLastImportedTime</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-rebuild-products-index" type="SearchReindex" enforce-restart="false">
+                <description>Rebuilds product indexes using SearchReindex step</description>
+                <parameters>
+                    <parameter name="Product related search indexes">true</parameter>
+                    <parameter name="Active data search index">false</parameter>
+                    <parameter name="Content search index">false</parameter>
+                    <parameter name="Indexer Type">Full Index Rebuild</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2019-08-06Z</date>
+                <time>09:12:36.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="3-2-2-Akeneo-Full-Import-Master-Variation" priority="0">
+        <description>This job is to import the master products variation attributes XML with no differential on last modified date</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-set-temporary-timestamp" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets temporary timestamp in Custom Cache</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setTemporaryTimestamp</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-set-import-type" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets import type in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setImportType</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                    <parameter name="IsFullImport">true</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-clear-impex-directory" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Clear the Impex location and archives files from previous failed runs</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">clearImpexLocation</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-products-master-variation-attributes" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Create master products variations attributes xml</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/modelVariationRelation.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">createMasterVarCatalog</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="Sites"/>
+            <step step-id="job-workflow-step-import-catalog" type="ImportCatalog" enforce-restart="false">
+                <description>Imports the catalogs generated in previous steps using ImportCatalog step</description>
+                <parameters>
+                    <parameter name="WorkingFolder">akeneo/catalog</parameter>
+                    <parameter name="FileNamePattern">catalog-akeneo-(.*).xml</parameter>
+                    <parameter name="NoFilesFoundHandling">WARN</parameter>
+                    <parameter name="ImportMode">Merge</parameter>
+                    <parameter name="ImportFailedHandling">WARN</parameter>
+                    <parameter name="AfterImportFileHandling">Archive</parameter>
+                    <parameter name="ArchiveFolder">src/akeneo/catalog/archives/imported</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-set-imported-time" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets imported time in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setLastImportedTime</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-rebuild-products-index" type="SearchReindex" enforce-restart="false">
+                <description>Rebuilds product indexes using SearchReindex step</description>
+                <parameters>
+                    <parameter name="Product related search indexes">true</parameter>
+                    <parameter name="Active data search index">false</parameter>
+                    <parameter name="Content search index">false</parameter>
+                    <parameter name="Indexer Type">Full Index Rebuild</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2019-08-06Z</date>
+                <time>09:12:36.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="3-2-3-Akeneo-Full-Import-Master-Images" priority="0">
+        <description>This job is to import the images XML related to Products and Master Products with no differential on last modified date</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-set-temporary-timestamp" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets temporary timestamp in Custom Cache</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setTemporaryTimestamp</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-set-import-type" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets import type in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setImportType</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                    <parameter name="IsFullImport">true</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-clear-impex-directory" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Clear the Impex location and archives files from previous failed runs</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">clearImpexLocation</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-products-images" type="ExecuteScriptModule" enforce-restart="false">
+                <description>create an xml for images of  products</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generateImages.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">createMediaXml</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="Sites"/>
+            <step step-id="job-workflow-step-import-catalog" type="ImportCatalog" enforce-restart="false">
+                <description>Imports the catalogs generated in previous steps using ImportCatalog step</description>
+                <parameters>
+                    <parameter name="WorkingFolder">akeneo/catalog</parameter>
+                    <parameter name="FileNamePattern">catalog-akeneo-(.*).xml</parameter>
+                    <parameter name="NoFilesFoundHandling">WARN</parameter>
+                    <parameter name="ImportMode">Merge</parameter>
+                    <parameter name="ImportFailedHandling">WARN</parameter>
+                    <parameter name="AfterImportFileHandling">Archive</parameter>
+                    <parameter name="ArchiveFolder">src/akeneo/catalog/archives/imported</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-set-imported-time" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets imported time in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setLastImportedTime</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-rebuild-products-index" type="SearchReindex" enforce-restart="false">
+                <description>Rebuilds product indexes using SearchReindex step</description>
+                <parameters>
+                    <parameter name="Product related search indexes">true</parameter>
+                    <parameter name="Active data search index">false</parameter>
+                    <parameter name="Content search index">false</parameter>
+                    <parameter name="Indexer Type">Full Index Rebuild</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2019-08-06Z</date>
+                <time>09:12:36.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="3-2-4-Akeneo-Full-Import-Storefront" priority="0">
+        <description>This job is to import the categories, product category assignments and product associations with no differential on last modified date</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-set-temporary-timestamp" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets temporary timestamp in Custom Cache</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setTemporaryTimestamp</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-set-import-type" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets import type in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setImportType</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                    <parameter name="IsFullImport">true</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-clear-impex-directory" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Clear the Impex location and archives files from previous failed runs</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/generalAkeneo.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">clearImpexLocation</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-storefront-catalog" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Calls Akeneo API and creates categories XML</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/createCategoriesXml.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">writeCategoriesXml</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-product-category-association" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Creates category assignments and associations for products and product models</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/productCategoryAndAssociation.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">createCategoryAssociationXml</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="Sites"/>
+            <step step-id="job-workflow-step-import-catalog" type="ImportCatalog" enforce-restart="false">
+                <description>Imports the catalogs generated in previous steps using ImportCatalog step</description>
+                <parameters>
+                    <parameter name="WorkingFolder">akeneo/catalog</parameter>
+                    <parameter name="FileNamePattern">catalog-akeneo-(.*).xml</parameter>
+                    <parameter name="NoFilesFoundHandling">WARN</parameter>
+                    <parameter name="ImportMode">Merge</parameter>
+                    <parameter name="ImportFailedHandling">WARN</parameter>
+                    <parameter name="AfterImportFileHandling">Archive</parameter>
+                    <parameter name="ArchiveFolder">src/akeneo/catalog/archives/imported</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-set-imported-time" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sets imported time in Custom object</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importedTime.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">setLastImportedTime</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="RuntimeObjectID">AkeneoCatalogRunTime</parameter>
+                </parameters>
+            </step>
+            <step step-id="job-workflow-step-rebuild-products-index" type="SearchReindex" enforce-restart="false">
+                <description>Rebuilds product indexes using SearchReindex step</description>
+                <parameters>
+                    <parameter name="Product related search indexes">true</parameter>
+                    <parameter name="Active data search index">false</parameter>
+                    <parameter name="Content search index">false</parameter>
+                    <parameter name="Indexer Type">Full Index Rebuild</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2019-07-02Z</date>
+                <time>07:08:08.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="4-Akeneo-Entity-Import" priority="0">
+        <description>This job is to import all entity records</description>
+        <parameters/>
+        <split sequential="false">
+            <flow>
+                <context site-id="RefArch"/>
+                <step step-id="job-workflow-step-import-entity-records" type="ExecuteScriptModule" enforce-restart="false">
+                    <description>Calls akeneo API to get all entity records and creates a meta zip archive and content asset XML</description>
+                    <parameters>
+                        <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/importEntityRecords</parameter>
+                        <parameter name="ExecuteScriptModule.FunctionName">getAllEntities</parameter>
+                        <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                        <parameter name="ReferenceEntityUrl">/api/rest/v1/reference-entities</parameter>
+                        <parameter name="EntityRecordsUrl">/api/rest/v1/reference-entities/{reference_entity_code}/records</parameter>
+                        <parameter name="AkeneoFluxPath">Impex/src/akeneo/content-asset-attributes</parameter>
+                        <parameter name="EntityAttributesUrl">/api/rest/v1/reference-entities/{reference_entity_code}/attributes</parameter>
+                        <parameter name="EntityAttributesOptionUrl">/api/rest/v1/reference-entities/{reference_entity_code}/attributes/{attribute_code}/options</parameter>
+                    </parameters>
+                </step>
+            </flow>
+            <flow>
+                <context site-id="Sites"/>
+                <step step-id="job-workflow-step-attributes-import" type="ImportSiteArchive" enforce-restart="false">
+                    <description>Imports the Zip file using ImportSiteArchive step</description>
+                    <parameters>
+                        <parameter name="ImportFile">import-meta-content-data-akeneo.zip</parameter>
+                        <parameter name="ImportMode">merge</parameter>
+                    </parameters>
+                </step>
+            </flow>
+        </split>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="job-workflow-step-content-import" type="ImportContent" enforce-restart="false">
+                <description>Imports content asset XML using ImportContent step</description>
+                <parameters>
+                    <parameter name="WorkingFolder">akeneo/library</parameter>
+                    <parameter name="FileNamePattern">content-assets-(.*).xml</parameter>
+                    <parameter name="NoFilesFoundHandling">ERROR</parameter>
+                    <parameter name="ImportMode">Merge</parameter>
+                    <parameter name="ImportFailedHandling">ERROR</parameter>
+                    <parameter name="AfterImportFileHandling">Archive</parameter>
+                    <parameter name="ArchiveFolder">src/akeneo/library/archives</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2019-07-02Z</date>
+                <time>07:08:08.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="5-Akeneo-Entity-Record-Grouping" priority="0">
+        <description>This job is to create Attribute Grouping for entity attributes in Content object</description>
+        <parameters/>
+        <split sequential="false">
+            <flow>
+                <context site-id="RefArch"/>
+                <step step-id="job-workflow-step-entity-records-group" type="ExecuteScriptModule" enforce-restart="false">
+                    <description>Creates meta Zip archive of content attributes group</description>
+                    <parameters>
+                        <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/entityRecordGrouping.js</parameter>
+                        <parameter name="ExecuteScriptModule.FunctionName">groupEntityRecords</parameter>
+                        <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                        <parameter name="AkeneoFluxPath">Impex/src/akeneo/content-asset-attributes-group</parameter>
+                    </parameters>
+                </step>
+            </flow>
+            <flow>
+                <context site-id="Sites"/>
+                <step step-id="job-workflow-step-attributes-group-import" type="ImportSiteArchive" enforce-restart="false">
+                    <description>Imports the Zip file using ImportSiteArchive step</description>
+                    <parameters>
+                        <parameter name="ImportFile">import-meta-content-group-data-akeneo.zip</parameter>
+                        <parameter name="ImportMode">merge</parameter>
+                    </parameters>
+                </step>
+            </flow>
+        </split>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2019-09-03Z</date>
+                <time>08:48:51.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="6-Akeneo-Save-Catalog-Refinements" priority="0">
+        <description>This job will save the manually contributed catalog refinements to custom cache so that they are not overwritten every time the catalog is reimported in merge mode. This job needs to be run every time some change is made in the catalog refinements. Note: Please consult official documentation for this job before running it.</description>
+        <parameters/>
+        <flow>
+            <context site-id="Sites"/>
+            <step step-id="export-storefront-catalog-m-en" type="ExportCatalog" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="CatalogID">storefront-catalog-m-en</parameter>
+                    <parameter name="ExportCategories">true</parameter>
+                    <parameter name="ExportProducts">false</parameter>
+                    <parameter name="ExportCategoryAssignments">false</parameter>
+                    <parameter name="ExportProductOptions">false</parameter>
+                    <parameter name="ExportRecommendations">false</parameter>
+                    <parameter name="ExportVariationAttributes">false</parameter>
+                    <parameter name="FileNamePrefix">akeneo/catalog/akeneo-catalog</parameter>
+                    <parameter name="OverwriteExportFile">true</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="Sites"/>
+            <step step-id="job-workflow-step-save-catalog-refinements" type="ExecuteScriptModule" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_akeneo/cartridge/scripts/jobs/saveCatalogRefinements.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">readCatalogFiles</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2020-05-11Z</date>
+                <time>15:49:57.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+</jobs>
