@@ -224,11 +224,15 @@ img {
   #hero h1 {
     font-size: 36px;
     line-height: 60px;
+    font-weight: 350;
+    letter-spacing: 0px;
   }
   #hero p {
     margin-top: 10px;
     font-size: 24px;
     line-height: 60px;
+    font-weight: 250;
+    letter-spacing: 0px;
   }
 }
 
