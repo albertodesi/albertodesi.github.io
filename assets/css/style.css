@@ -2,7 +2,7 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: "Noto Sans Display", sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #272829;
 }
 
@@ -15,12 +15,8 @@ a:hover {
   text-decoration: none;
 }
 
-h1 {
-  font-family: "Quicksand", sans-serif;
-}
-
-h2, h3, h4, h5, h6 {
-  font-family: "Noto Sans Display", sans-serif;
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Roboto", sans-serif;
 }
 
 img {
@@ -188,17 +184,20 @@ img {
 
 #hero h1 {
   margin: 0 5px 0 0;
-  font-size: 80px;
-  font-weight: 700;
+  font-size: 60px;
+  font-weight: 200;
   line-height: 56px;
   color: #45505b;
+  letter-spacing: 4px;
 }
 
 #hero p {
   color: #45505b;
   margin: 25px 5px 0 0;
-  font-size: 26px;
-  font-family: "Noto Sans Display", sans-serif;
+  font-size: 24px;
+  font-weight: 200;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 3px;
 }
 
 #hero p span {
