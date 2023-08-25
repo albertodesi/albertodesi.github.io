@@ -15,7 +15,11 @@ a:hover {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1 {
+  font-family: "Quicksand", sans-serif;
+}
+
+h2, h3, h4, h5, h6 {
   font-family: "Noto Sans Display", sans-serif;
 }
 
@@ -184,7 +188,7 @@ img {
 
 #hero h1 {
   margin: 0 5px 0 0;
-  font-size: 64px;
+  font-size: 80px;
   font-weight: 700;
   line-height: 56px;
   color: #45505b;
