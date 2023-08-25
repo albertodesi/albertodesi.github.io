@@ -29,6 +29,12 @@ img {
     margin-bottom: 30px;
   }
 }
+::selection {
+  background:#FCD12A;
+}  
+::-moz-selection {
+  background:#FCD12A;
+}
 
 /*--------------------------------------------------------------
 # Header
