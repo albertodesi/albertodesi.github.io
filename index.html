@@ -98,7 +98,7 @@
     </section>
 
     <section class="experience-section content-section section-shell" id="experience">
-      <div class="section-kicker reveal"><span>03 /</span><span data-it="PERCORSO" data-en="EXPERIENCE">EXPERIENCE</span></div>
+      <div class="section-kicker reveal"><span>04 /</span><span data-it="PERCORSO" data-en="EXPERIENCE">EXPERIENCE</span></div>
       <div class="experience-intro experience-intro-wide">
         <span class="experience-overline" data-it="2012 — OGGI · 14 ANNI DI PERCORSO" data-en="2012 — NOW · 14 YEARS IN MOTION">2012 — NOW · 14 YEARS IN MOTION</span>
         <h2 class="section-heading reveal" data-it="Ogni tappa<br>ha lasciato un <em>segno.</em>" data-en="Every chapter<br>left its <em>mark.</em>">Every chapter<br>left its <em>mark.</em></h2>
@@ -194,14 +194,14 @@
     
 
     <section class="contact-section section-shell" id="contact">
-      <div class="section-kicker reveal"><span>04 /</span><span data-it="INIZIAMO UNA CONVERSAZIONE" data-en="START A CONVERSATION">START A CONVERSATION</span></div>
+      <div class="section-kicker reveal"><span>05 /</span><span data-it="INIZIAMO UNA CONVERSAZIONE" data-en="START A CONVERSATION">START A CONVERSATION</span></div>
       <div class="contact-inner"><h2 class="contact-title reveal" data-it="Hai una sfida<br>da <em>affrontare?</em>" data-en="Have a challenge<br>to <em>solve?</em>">Have a challenge<br>to <em>solve?</em></h2><a class="contact-cta magnetic reveal" href="https://www.linkedin.com/in/albertodesidera" target="_blank" rel="noopener noreferrer"><span data-it="Connettiamoci" data-en="Let's connect">Let's connect</span><b>↗</b></a></div>
       
     </section>
 
     <section class="soundtrack-section" id="soundtrack" aria-labelledby="soundtrack-title">
       <div class="soundtrack-noise" aria-hidden="true"></div>
-      <div class="soundtrack-topline"><span><i></i> 05 / <span data-it="FUORI ORARIO" data-en="OFF THE CLOCK">OFF THE CLOCK</span></span><span>ALBERTO.DESI — PERSONAL SOUNDTRACK</span></div>
+      <div class="soundtrack-topline"><span><i></i> 06 / <span data-it="FUORI ORARIO" data-en="OFF THE CLOCK">OFF THE CLOCK</span></span><span>ALBERTO.DESI — PERSONAL SOUNDTRACK</span></div>
       <div class="soundtrack-layout">
         <div class="soundtrack-copy">
           <p class="soundtrack-eyebrow" data-it="OGNI IDEA HA IL SUO RITMO" data-en="EVERY IDEA HAS ITS RHYTHM">EVERY IDEA HAS ITS RHYTHM</p>
@@ -288,10 +288,18 @@
       gsap.utils.toArray('.about-copy p,.section-aside,.thinking-copy').forEach((el,i)=>gsap.from(el,{y:28,opacity:0,duration:.8,delay:i*.04,scrollTrigger:{trigger:el,start:'top 90%',once:true}}));
       gsap.from('.expertise-item',{y:45,opacity:0,stagger:.11,duration:.75,ease:'power3.out',scrollTrigger:{trigger:'.expertise-list',start:'top 82%',once:true}});
       gsap.from('.tech-cloud span',{y:18,opacity:0,stagger:.045,duration:.5,scrollTrigger:{trigger:'.tech-cloud',start:'top 92%',once:true}});
-      gsap.from('.career-stop',{x:55,opacity:0,stagger:.16,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'.career-timeline',start:'top 82%',once:true}});
-      gsap.fromTo('.career-rail-fill',{scaleY:0},{scaleY:1,ease:'none',scrollTrigger:{trigger:'.career-timeline',start:'top 72%',end:'bottom 72%',scrub:.8}});
-      gsap.utils.toArray('.career-stop').forEach((stop,i)=>ScrollTrigger.create({trigger:stop,start:'top 68%',end:'bottom 38%',onEnter:()=>stop.classList.add('is-active'),onEnterBack:()=>stop.classList.add('is-active'),onLeave:()=>stop.classList.remove('is-active'),onLeaveBack:()=>stop.classList.remove('is-active')}));
-      gsap.from('.career-tags span',{y:12,opacity:0,stagger:.05,duration:.45,scrollTrigger:{trigger:'.career-timeline',start:'top 72%',once:true}});
+      gsap.from('.journey-entry',{x:(i)=>i%2===0?90:-90,y:65,opacity:0,stagger:.12,duration:1.05,ease:'power4.out',scrollTrigger:{trigger:'.career-journey',start:'top 78%',once:true}});
+      gsap.fromTo('.journey-spine-fill',{scaleY:0},{scaleY:1,ease:'none',scrollTrigger:{trigger:'.career-journey',start:'top 72%',end:'bottom 72%',scrub:1}});
+      gsap.utils.toArray('.journey-entry').forEach((entry,i)=>{
+        ScrollTrigger.create({trigger:entry,start:'top 66%',end:'bottom 38%',onEnter:()=>entry.classList.add('is-active'),onEnterBack:()=>entry.classList.add('is-active'),onLeave:()=>entry.classList.remove('is-active'),onLeaveBack:()=>entry.classList.remove('is-active')});
+        const panel=entry.querySelector('.journey-panel');
+        if(panel&&window.matchMedia('(min-width:761px)').matches){
+          gsap.to(panel,{y:()=>i%2===0?-18:18,ease:'none',scrollTrigger:{trigger:entry,start:'top bottom',end:'bottom top',scrub:1.2}});
+          gsap.from(panel.querySelectorAll('.journey-panel-top,.journey-panel h3,.journey-position,.journey-copy,.journey-tags'),{y:24,opacity:0,stagger:.07,duration:.7,ease:'power3.out',scrollTrigger:{trigger:entry,start:'top 78%',once:true}});
+        }
+      });
+      gsap.from('.education-track article',{y:45,opacity:0,stagger:.15,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.education-track',start:'top 82%',once:true}});
+      gsap.from('.education-heading h3',{x:-35,opacity:0,duration:.8,scrollTrigger:{trigger:'.education-heading',start:'top 88%',once:true}});
 
 
       const soundtrack=gsap.timeline({scrollTrigger:{trigger:'.soundtrack-section',start:'top 72%',once:true}});
