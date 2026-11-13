@@ -62,7 +62,7 @@
           <div class="visual-label label-bottom">HUMAN FIRST <span>·</span> SYSTEM THINKING</div>
         </div>
       </div>
-      <div class="hero-bottom"><span data-it="SCOPRI IL MIO PERCORSO" data-en="EXPLORE MY WORK">EXPLORE MY WORK</span><div class="scroll-cue"><i></i></div><span>01 / 07</span></div>
+      <div class="hero-bottom"><span data-it="SCOPRI IL MIO PERCORSO" data-en="SCROLL TO EXPLORE">SCROLL TO EXPLORE</span><div class="scroll-cue"><i></i></div><span>01 / 05</span></div>
     </section>
 
     
@@ -98,12 +98,16 @@
 
     <section class="experience-section content-section section-shell" id="experience">
       <div class="section-kicker reveal"><span>03 /</span><span data-it="PERCORSO" data-en="EXPERIENCE">EXPERIENCE</span></div>
-      <div class="experience-layout"><h2 class="section-heading reveal" data-it="Dall’ingegneria<br>alla <em>consulenza digitale.</em>" data-en="From engineering<br>to <em>digital advisory.</em>">From engineering<br>to <em>digital advisory.</em></h2>
-      <div class="timeline">
-        <article class="timeline-item reveal"><span class="timeline-dot orange"></span><div class="timeline-meta"><span>2026 — NOW</span><span class="timeline-tag">CURRENT</span></div><h3>Arsenalia</h3><p data-it="Sales Specialist · Digital commerce, presales e consulenza su ecosistemi digitali." data-en="Sales Specialist · Digital commerce, presales and advisory across digital ecosystems.">Sales Specialist · Digital commerce, presales and advisory across digital ecosystems.</p></article>
-        <article class="timeline-item reveal"><span class="timeline-dot blue"></span><div class="timeline-meta"><span>PREVIOUS EXPERIENCE</span></div><h3>Alpenite / JAKALA</h3><p data-it="Solution design, presales, business development e alleanze. Un percorso costruito tra progettazione di soluzioni e sviluppo commerciale." data-en="Solution design, presales, business development and alliances. A path built across solution design and commercial development.">Solution design, presales, business development and alliances. A path built across solution design and commercial development.</p></article>
-        <article class="timeline-item reveal"><span class="timeline-dot"></span><div class="timeline-meta"><span>FOUNDATIONS</span></div><h3 data-it="Engineering mindset" data-en="Engineering mindset">Engineering mindset</h3><p data-it="Formazione in Ingegneria delle Telecomunicazioni: metodo analitico, curiosità tecnica e attenzione ai sistemi complessi." data-en="Telecommunications Engineering: analytical thinking, technical curiosity and an appreciation for complex systems.">Telecommunications Engineering: analytical thinking, technical curiosity and an appreciation for complex systems.</p></article>
-      </div></div>
+      <div class="experience-layout">
+        <div class="experience-intro"><span class="experience-overline" data-it="UN PERCORSO IN EVOLUZIONE" data-en="A CAREER IN MOTION">A CAREER IN MOTION</span><h2 class="section-heading reveal" data-it="Esperienze diverse.<br><em>Una direzione.</em>" data-en="Different chapters.<br><em>One direction.</em>">Different chapters.<br><em>One direction.</em></h2><p class="experience-summary" data-it="Dall’approccio ingegneristico alla consulenza digitale: ho costruito il mio percorso tra progettazione, sviluppo commerciale e innovazione." data-en="From an engineering mindset to digital advisory — my path connects solution design, commercial development and innovation.">From an engineering mindset to digital advisory — my path connects solution design, commercial development and innovation.</p></div>
+        <div class="career-timeline">
+          <div class="career-rail" aria-hidden="true"><span class="career-rail-fill"></span></div>
+          <article class="career-stop reveal"><span class="career-node current"><i></i></span><div class="career-card"><div class="career-meta"><span>2026 — NOW</span><span class="career-status" data-it="ATTUALE" data-en="CURRENT ROLE">CURRENT ROLE</span></div><div class="career-heading"><h3>Arsenalia</h3><span class="career-index">01</span></div><p class="career-role">Sales Specialist</p><p class="career-description" data-it="Consulenza e sviluppo commerciale in ambito digital commerce, product experience e trasformazione digitale." data-en="Advisory and business development across digital commerce, product experience and digital transformation.">Advisory and business development across digital commerce, product experience and digital transformation.</p><div class="career-tags"><span>Digital Commerce</span><span>Advisory</span><span>Presales</span></div></div></article>
+          <article class="career-stop reveal"><span class="career-node"><i></i></span><div class="career-card"><div class="career-meta"><span>JUNE 2024 — 2026</span><span>PREVIOUS CHAPTER</span></div><div class="career-heading"><h3>Alpenite</h3><span class="career-index">02</span></div><p class="career-role">Presales Specialist</p><p class="career-description" data-it="Guida delle attività presales e progettazione di soluzioni per ecosistemi commerce, PIM e DAM." data-en="Leading presales activities and shaping solutions across commerce, PIM and DAM ecosystems.">Leading presales activities and shaping solutions across commerce, PIM and DAM ecosystems.</p><div class="career-tags"><span>PIM &amp; DAM</span><span>Solution Design</span><span>Digital Experience</span></div></div></article>
+          <article class="career-stop reveal"><span class="career-node"><i></i></span><div class="career-card"><div class="career-meta"><span>PREVIOUS EXPERIENCE</span><span>JAKALA</span></div><div class="career-heading"><h3>JAKALA</h3><span class="career-index">03</span></div><p class="career-role">Solution Design · Presales · Business Development</p><p class="career-description" data-it="Un’esperienza tra disegno di soluzioni, sviluppo di nuove opportunità e gestione delle alleanze." data-en="Experience spanning solution design, new business development and strategic alliances.">Experience spanning solution design, new business development and strategic alliances.</p><div class="career-tags"><span>Business Development</span><span>Alliances</span><span>Presales</span></div></div></article>
+          <article class="career-stop reveal"><span class="career-node"><i></i></span><div class="career-card career-foundation"><div class="career-meta"><span>FOUNDATION</span><span>EDUCATION</span></div><div class="career-heading"><h3 data-it="Ingegneria delle Telecomunicazioni" data-en="Telecommunications Engineering">Telecommunications Engineering</h3><span class="career-index">04</span></div><p class="career-description" data-it="La base analitica e tecnica che guida ancora oggi il mio approccio ai sistemi e alle sfide complesse." data-en="The analytical and technical foundation behind the way I approach systems and complex challenges today.">The analytical and technical foundation behind the way I approach systems and complex challenges today.</p></div></article>
+        </div>
+      </div>
     </section>
 
     
@@ -174,10 +178,13 @@
       gsap.utils.toArray('.about-copy p,.section-aside,.thinking-copy').forEach((el,i)=>gsap.from(el,{y:28,opacity:0,duration:.8,delay:i*.04,scrollTrigger:{trigger:el,start:'top 90%',once:true}}));
       gsap.from('.expertise-item',{y:45,opacity:0,stagger:.11,duration:.75,ease:'power3.out',scrollTrigger:{trigger:'.expertise-list',start:'top 82%',once:true}});
       gsap.from('.tech-cloud span',{y:18,opacity:0,stagger:.045,duration:.5,scrollTrigger:{trigger:'.tech-cloud',start:'top 92%',once:true}});
-      gsap.from('.timeline-item',{x:55,opacity:0,stagger:.18,duration:.85,ease:'power3.out',scrollTrigger:{trigger:'.timeline',start:'top 82%',once:true}});
+      gsap.from('.career-stop',{x:55,opacity:0,stagger:.16,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'.career-timeline',start:'top 82%',once:true}});
+      gsap.fromTo('.career-rail-fill',{scaleY:0},{scaleY:1,ease:'none',scrollTrigger:{trigger:'.career-timeline',start:'top 72%',end:'bottom 72%',scrub:.8}});
+      gsap.utils.toArray('.career-stop').forEach((stop,i)=>ScrollTrigger.create({trigger:stop,start:'top 68%',end:'bottom 38%',onEnter:()=>stop.classList.add('is-active'),onEnterBack:()=>stop.classList.add('is-active'),onLeave:()=>stop.classList.remove('is-active'),onLeaveBack:()=>stop.classList.remove('is-active')}));
+      gsap.from('.career-tags span',{y:12,opacity:0,stagger:.05,duration:.45,scrollTrigger:{trigger:'.career-timeline',start:'top 72%',once:true}});
 
 
-      gsap.from('.certifications span,.contact-meta span',{y:18,opacity:0,stagger:.07,duration:.6,scrollTrigger:{trigger:'.certifications,.contact-meta',start:'top 92%',once:true}});
+      gsap.from('.certifications span',{y:18,opacity:0,stagger:.07,duration:.6,scrollTrigger:{trigger:'.certifications',start:'top 92%',once:true}});
 
       document.querySelectorAll('.expertise-item,.contact-cta').forEach(el=>{el.addEventListener('mouseenter',()=>gsap.to(el,{y:-5,duration:.3,ease:'power2.out'}));el.addEventListener('mouseleave',()=>gsap.to(el,{y:0,duration:.45,ease:'power3.out'}));});
       ScrollTrigger.refresh();
