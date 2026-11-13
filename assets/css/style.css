@@ -850,3 +850,34 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
 @media(prefers-reduced-motion:reduce){
   #soundtrack.soundtrack-playing .soundtrack-record{animation:none!important}
 }
+
+/* Handwritten sign-off — final gesture below the footer */
+.signature-close{
+  display:flex;justify-content:center;align-items:center;
+  padding:clamp(30px,5vw,64px) 6vw clamp(42px,6vw,76px);
+  background:#090a0c;border-top:1px solid rgba(255,255,255,.08);
+  overflow:hidden;
+}
+.signature-close img{
+  display:block;width:min(467px,72vw);height:auto;max-height:116px;
+  object-fit:contain;opacity:1;
+}
+.signature-close.signature-pending img{
+  clip-path:inset(0 100% 0 0);
+}
+.signature-close.signature-animate img{
+  animation:signature-write 3.2s cubic-bezier(.65,0,.25,1) both;
+}
+@keyframes signature-write{
+  0%{clip-path:inset(0 100% 0 0);filter:drop-shadow(0 0 0 rgba(52,124,255,0))}
+  72%{clip-path:inset(0 0 0 0);filter:drop-shadow(0 0 7px rgba(52,124,255,.18))}
+  100%{clip-path:inset(0 0 0 0);filter:drop-shadow(0 0 0 rgba(52,124,255,0))}
+}
+@media(max-width:600px){
+ .signature-close{padding:34px 7vw 48px}
+ .signature-close img{width:min(390px,86vw)}
+}
+@media(prefers-reduced-motion:reduce){
+ .signature-close.signature-pending img{clip-path:none}
+ .signature-close.signature-animate img{animation:none}
+}
