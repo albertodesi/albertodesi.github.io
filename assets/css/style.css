@@ -461,3 +461,53 @@
  #soundtrack .spotify-embed-wrap iframe{height:260px!important}
  #soundtrack .spotify-embed-label{font-size:7px!important}
 }
+
+/* Soundtrack v3 — vinyl and Spotify player side by side, not stacked */
+#soundtrack .soundtrack-hero{
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important;
+  gap:clamp(28px,4vw,64px)!important;
+}
+#soundtrack .soundtrack-art{
+  display:grid!important;
+  grid-template-columns:minmax(170px,.72fr) minmax(0,1.28fr)!important;
+  align-items:center!important;
+  justify-items:stretch!important;
+  gap:18px!important;
+  width:100%!important;
+  min-width:0!important;
+  padding:20px 0!important;
+}
+#soundtrack .soundtrack-record{
+  width:100%!important;
+  max-width:245px!important;
+  min-width:0!important;
+  align-self:center!important;
+}
+#soundtrack .spotify-embed-wrap{
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:10px!important;
+}
+#soundtrack .spotify-embed-wrap iframe{height:352px!important}
+#soundtrack .soundtrack-orbit-a{width:clamp(340px,30vw,460px)!important;top:50%!important;left:35%!important}
+#soundtrack .soundtrack-orbit-b{width:clamp(390px,36vw,530px)!important;top:50%!important;left:35%!important}
+#soundtrack .soundtrack-sticker{right:0!important;top:0!important}
+#soundtrack .soundtrack-eq{left:20%!important;top:78%!important}
+@media(max-width:1100px){
+ #soundtrack .soundtrack-hero{grid-template-columns:1fr!important;gap:30px!important}
+ #soundtrack .soundtrack-art{grid-template-columns:minmax(190px,.7fr) minmax(0,1.3fr)!important;max-width:900px!important;margin:0 auto!important}
+ #soundtrack .soundtrack-record{max-width:260px!important}
+ #soundtrack .spotify-embed-wrap iframe{height:300px!important}
+}
+@media(max-width:760px){
+ #soundtrack .soundtrack-art{grid-template-columns:1fr!important;gap:22px!important;padding:18px 0 0!important}
+ #soundtrack .soundtrack-record{width:min(62vw,260px)!important;justify-self:center!important}
+ #soundtrack .spotify-embed-wrap{width:100%!important;max-width:560px!important;margin:0 auto!important}
+ #soundtrack .spotify-embed-wrap iframe{height:300px!important}
+ #soundtrack .soundtrack-orbit-a{left:50%!important;top:140px!important}
+ #soundtrack .soundtrack-orbit-b{left:50%!important;top:140px!important}
+ #soundtrack .soundtrack-sticker{right:5%!important;top:0!important}
+ #soundtrack .soundtrack-eq{left:2%!important;top:235px!important}
+}
