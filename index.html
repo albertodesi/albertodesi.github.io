@@ -218,6 +218,14 @@
       gsap.from('.career-tags span',{y:12,opacity:0,stagger:.05,duration:.45,scrollTrigger:{trigger:'.career-timeline',start:'top 72%',once:true}});
 
 
+      const soundtrack=gsap.timeline({scrollTrigger:{trigger:'.soundtrack-section',start:'top 72%',once:true}});
+      soundtrack.from('.soundtrack-topline',{y:18,opacity:0,duration:.7})
+        .from('.soundtrack-eyebrow,.soundtrack-title span,.soundtrack-title em',{y:65,opacity:0,stagger:.12,duration:1,ease:'power4.out'},'-=.25')
+        .from('.soundtrack-description,.soundtrack-open',{y:25,opacity:0,stagger:.12,duration:.7},'-=.55')
+        .from('.vinyl-disc',{scale:.65,opacity:0,rotate:-35,duration:1.35,ease:'expo.out'},'-=1')
+        .from('.spotify-player',{y:80,opacity:0,rotate:5,duration:1,ease:'power3.out'},'-=.8')
+        .from('.soundtrack-footnote',{opacity:0,y:12,duration:.6},'-=.45');
+      gsap.from('.soundtrack-marquee span',{opacity:0,stagger:.08,duration:.6,scrollTrigger:{trigger:'.soundtrack-marquee',start:'top 95%',once:true}});
       gsap.from('.certifications span',{y:18,opacity:0,stagger:.07,duration:.6,scrollTrigger:{trigger:'.certifications',start:'top 92%',once:true}});
 
       document.querySelectorAll('.expertise-item,.contact-cta').forEach(el=>{el.addEventListener('mouseenter',()=>gsap.to(el,{y:-5,duration:.3,ease:'power2.out'}));el.addEventListener('mouseleave',()=>gsap.to(el,{y:0,duration:.45,ease:'power3.out'}));});
