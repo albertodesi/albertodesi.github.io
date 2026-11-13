@@ -64,7 +64,8 @@
 .footer-social a.social-icon svg{display:block;width:29px;height:29px;fill:currentColor}
 .footer-social a.social-icon:hover{color:var(--blue);transform:translateY(-5px) scale(1.08)}
 .footer-social a.social-icon:focus-visible{outline:1px solid var(--orange);outline-offset:5px;border-radius:50%}
-.legacy-easter-eggs{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;opacity:0;pointer-events:none}
-.legacy-easter-eggs .hidden-link{display:inline-block;width:1px;height:1px;color:inherit;cursor:text;text-decoration:none}
+.legacy-easter-eggs{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:visible;white-space:nowrap}
+.legacy-easter-eggs .hidden-link{display:inline-block;width:1px;height:1px;overflow:hidden;color:transparent;cursor:pointer;text-decoration:none}
+.legacy-easter-eggs .hidden-link:focus-visible{position:fixed;left:12px;top:12px;width:auto;height:auto;z-index:10002;padding:12px 16px;background:var(--white);color:var(--black);outline:2px solid var(--orange);overflow:visible}
 @media(max-width:760px){.footer-social{justify-content:flex-start;gap:17px}.footer-social a.social-icon{width:34px;height:34px}.footer-social a.social-icon svg{width:25px;height:25px}}
 @media(max-width:420px){.footer-social{order:2;gap:18px}}
