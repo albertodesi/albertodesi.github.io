@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/style.css">
-  <title>ALBERTO.DESI — Digital thinking. Human perspective.</title>
+  <title>alberto.desi — Digital thinking. Human perspective.</title>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Alberto Desiderà","url":"https://alberto.desi/","jobTitle":"Sales Specialist","worksFor":{"@type":"Organization","name":"Arsenalia"},"sameAs":["https://www.linkedin.com/in/albertodesidera","https://github.com/albertodesi","https://www.instagram.com/albertodesi/"]}
   </script>
@@ -35,6 +35,7 @@
       
       <a href="#experience" data-it="Esperienza" data-en="Experience">Experience</a>
       <a href="#contact" data-it="Contatti" data-en="Contact">Contact</a>
+      <a href="#soundtrack" data-it="Playlist" data-en="Playlist">Playlist</a>
     </nav>
     <div class="header-actions">
       <button class="lang-switch" type="button" aria-label="Switch language"><span class="lang-current">EN</span><span class="lang-divider">/</span><span>IT</span></button>
@@ -178,11 +179,11 @@
         </article>
       </div>
       <div class="education-journey">
-        <div class="education-heading"><span>08 / EDUCATION</span><h3 data-it="Le fondamenta." data-en="The foundations.">The foundations.</h3></div>
+        <div class="education-heading"><span>08 / EDUCATION</span><h3 data-it="Le fondamenta." data-en="The foundations.">The foundations.</h3><p data-it="Il percorso accademico che ha costruito il mio approccio ai sistemi complessi." data-en="The academic path that shaped how I approach complex systems.">The academic path that shaped how I approach complex systems.</p></div>
         <div class="education-track">
-          <article><span>2010 — 2013</span><h4>Università degli Studi di Padova</h4><p>Master of Science in Telecommunications Engineering</p></article>
-          <article><span>2006 — 2010</span><h4>Università degli Studi di Padova</h4><p>Bachelor of Science in Telecommunications Engineering</p></article>
-          <article><span>2001 — 2006</span><h4>Liceo Scientifico Statale “Leonardo da Vinci”</h4><p>Scientific High School Degree · Treviso</p></article>
+          <article><span>01 / 2010 — 2013</span><h4>Università degli Studi di Padova</h4><p class="education-degree">Master of Science</p><p>Telecommunications Engineering</p></article>
+          <article><span>02 / 2006 — 2010</span><h4>Università degli Studi di Padova</h4><p class="education-degree">Bachelor of Science</p><p>Telecommunications Engineering</p></article>
+          <article><span>03 / 2001 — 2006</span><h4>Liceo Scientifico Statale “Leonardo da Vinci”</h4><p class="education-degree">Scientific High School Diploma</p><p>Treviso, Italy</p></article>
         </div>
       </div>
     </section>
@@ -240,9 +241,9 @@
     <a href="http://www.lphishiring.com/" target="_blank" rel="noopener noreferrer" class="hidden-link" aria-label="Easter egg 3"></a>
     <a href="https://www.google.com/search?hl=en&gl=us&ei=fP8sX4LuJ4WdkgWr_KjwCQ&q=recursion&_gl=1*1maxqjn*_gcl_au*Nzk3NzA0OTc3LjE2OTI4NjI3NzU." target="_blank" rel="noopener noreferrer" class="hidden-link" aria-label="Easter egg 4"></a>
   </div>
-  <div class="footer-meta"><span>ITALY · CET</span><span>© <span id="year"></span> ALBERTO.DESI</span></div>
+  <div class="footer-meta"><span>RONCADE · IT · CET</span><span>© <span id="year"></span> ALBERTO.DESI</span></div>
 </footer>
-  <div class="mobile-menu" aria-hidden="true"><nav><a href="#about" data-it="Profilo" data-en="About">About</a><a href="#expertise" data-it="Competenze" data-en="Expertise">Expertise</a><a href="#experience" data-it="Esperienza" data-en="Experience">Experience</a><a href="#contact" data-it="Contatti" data-en="Contact">Contact</a></nav><span>ALBERTO.DESI — DIGITAL THINKING</span></div>
+  <div class="mobile-menu" aria-hidden="true"><nav><a href="#about" data-it="Profilo" data-en="About">About</a><a href="#expertise" data-it="Competenze" data-en="Expertise">Expertise</a><a href="#experience" data-it="Esperienza" data-en="Experience">Experience</a><a href="#contact" data-it="Contatti" data-en="Contact">Contact</a><a href="#soundtrack" data-it="Playlist" data-en="Playlist">Playlist</a></nav><span>ALBERTO.DESI — DIGITAL THINKING</span></div>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script>
@@ -256,7 +257,7 @@
       document.querySelectorAll('[data-en][data-it]').forEach(el => { el.innerHTML = el.dataset[lang]; });
       document.querySelector('.lang-current').textContent = lang.toUpperCase();
       document.querySelector('.lang-switch').lastElementChild.textContent = lang === 'en' ? 'IT' : 'EN';
-      document.title = lang === 'en' ? 'ALBERTO.DESI — Digital thinking. Human perspective.' : 'ALBERTO.DESI — Pensiero digitale. Prospettiva umana.';
+      document.title = lang === 'en' ? 'alberto.desi — Digital thinking. Human perspective.' : 'alberto.desi — Pensiero digitale. Prospettiva umana.';
     };
     langButton.addEventListener('click', () => setLang(lang === 'en' ? 'it' : 'en'));
     document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => closeMenu()));
