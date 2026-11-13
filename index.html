@@ -208,19 +208,22 @@
         <p class="soundtrack-eyebrow" data-it="UNA PLAYLIST PERSONALE" data-en="A PERSONAL PLAYLIST">A PERSONAL PLAYLIST</p>
         <h2 id="soundtrack-title"><span data-it="Soundtrack" data-en="Soundtrack">Soundtrack</span><br><em>of my life.</em></h2>
         <p class="soundtrack-description" data-it="Musica per pensare, lavorare, viaggiare e perdersi un po'. Una selezione personale, senza un genere preciso e senza troppe regole." data-en="Music for thinking, working, travelling and getting a little lost. A personal selection, with no single genre and not too many rules.">Music for thinking, working, travelling and getting a little lost. A personal selection, with no single genre and not too many rules.</p>
-        <a class="soundtrack-open" href="https://open.spotify.com/playlist/2BDxxVa5zZWtiHTncQdhWZ?si=c1f5159e213248ca" target="_blank" rel="noopener noreferrer"><span data-it="APRI LA PLAYLIST" data-en="OPEN THE PLAYLIST">OPEN THE PLAYLIST</span><b>↗</b></a>
+        <a class="soundtrack-open" href="https://open.spotify.com/playlist/2BDxxVa5zZWtiHTncQdhWZ?si=c1f5159e213248ca" target="_blank" rel="noopener noreferrer"><span data-it="APRI SU SPOTIFY" data-en="OPEN ON SPOTIFY">OPEN ON SPOTIFY</span><b>↗</b></a>
         <div class="soundtrack-note"><span>PERSONALLY CURATED</span><span>UPDATED ON MY OWN TERMS</span></div>
       </div>
-      <div class="soundtrack-art">
+      <div class="soundtrack-art" aria-label="Animated vinyl record">
         <div class="soundtrack-orbit soundtrack-orbit-a" aria-hidden="true"></div><div class="soundtrack-orbit soundtrack-orbit-b" aria-hidden="true"></div>
-        <div class="soundtrack-record" aria-hidden="true"><div class="record-grooves"></div><div class="record-label"><span>@ALBERTODESI</span><strong>the selection</strong><small>PLAY LOUD · SIDE A</small></div></div>
-        <div class="soundtrack-sticker" aria-hidden="true">PRESS<br>PLAY <b>↗</b></div>
-        <div class="soundtrack-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="spotify-embed-wrap">
-          <div class="spotify-embed-label"><span><i></i> THE SELECTION</span><span>LISTEN HERE OR ON SPOTIFY</span></div>
-          <iframe title="Alberto Desiderà — the selection Spotify playlist" src="https://open.spotify.com/embed/playlist/2BDxxVa5zZWtiHTncQdhWZ?utm_source=generator&amp;theme=0" width="100%" height="300" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <div class="soundtrack-record" aria-hidden="true">
+          <div class="record-grooves"></div>
+          <div class="record-label-image"><img src="data:image/webp;base64,{{COVER}}" alt="Playlist cover: @albertodesi the selection" /></div>
         </div>
+        <button class="soundtrack-play" type="button" aria-expanded="false" aria-controls="spotify-embed-wrap"><span class="soundtrack-play-icon" aria-hidden="true"></span><span data-it="ASCOLTA" data-en="PLAY">PLAY</span></button>
+        <div class="soundtrack-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       </div>
+    </div>
+    <div class="spotify-embed-wrap" id="spotify-embed-wrap" aria-hidden="true">
+      <div class="spotify-embed-label"><span><i></i> THE SELECTION</span><span>THE FULL PLAYLIST · LISTEN ON SPOTIFY</span></div>
+      <iframe title="Alberto Desiderà — the selection Spotify playlist" src="https://open.spotify.com/embed/playlist/2BDxxVa5zZWtiHTncQdhWZ?utm_source=generator&amp;theme=0" width="100%" height="450" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
     <div class="soundtrack-marquee" aria-hidden="true"><div><span>DO OR DO NOT. THERE IS NO TRY.</span><b class="marquee-star" aria-hidden="true"></b><span>DO OR DO NOT. THERE IS NO TRY.</span><b class="marquee-star" aria-hidden="true"></b></div></div>
   </div>
@@ -249,6 +252,34 @@
   <script>
   (() => {
     const body = document.body;
+    const soundtrackPlay = document.querySelector('.soundtrack-play');
+    const soundtrackSection = document.querySelector('#soundtrack');
+    const spotifyPanel = document.querySelector('#spotify-embed-wrap');
+    let soundtrackRevealTimer = null;
+    soundtrackPlay?.addEventListener('click', () => {
+      const isOpen = soundtrackSection.classList.contains('playlist-open');
+      if (isOpen) {
+        soundtrackSection.classList.remove('playlist-open');
+        soundtrackPlay.setAttribute('aria-expanded', 'false');
+        spotifyPanel.setAttribute('aria-hidden', 'true');
+        soundtrackPlay.querySelector('[data-en]').textContent = lang === 'en' ? 'PLAY' : 'ASCOLTA';
+        return;
+      }
+      if (soundtrackPlay.disabled) return;
+      soundtrackPlay.disabled = true;
+      soundtrackSection.classList.remove('playlist-open');
+      soundtrackSection.classList.add('record-spinning');
+      soundtrackPlay.querySelector('[data-en]').textContent = lang === 'en' ? 'SPINNING' : 'GIRA...';
+      soundtrackRevealTimer = window.setTimeout(() => {
+        soundtrackSection.classList.remove('record-spinning');
+        soundtrackSection.classList.add('playlist-open');
+        soundtrackPlay.disabled = false;
+        soundtrackPlay.setAttribute('aria-expanded', 'true');
+        spotifyPanel.setAttribute('aria-hidden', 'false');
+        soundtrackPlay.querySelector('[data-en]').textContent = lang === 'en' ? 'CLOSE' : 'CHIUDI';
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
+      }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 80 : 1250);
+    });
     const langButton = document.querySelector('.lang-switch');
     let lang = 'en';
     const setLang = (next) => {
@@ -317,7 +348,7 @@
         .from('.soundtrack-eyebrow,.soundtrack-copy h2 span,.soundtrack-copy h2 em',{y:65,opacity:0,stagger:.12,duration:1,ease:'power4.out'},'-=.25')
         .from('.soundtrack-description,.soundtrack-open',{y:25,opacity:0,stagger:.12,duration:.7},'-=.55')
         .from('.soundtrack-record',{scale:.65,opacity:0,rotate:-35,duration:1.35,ease:'expo.out'},'-=1')
-        .from('.spotify-embed-wrap',{y:65,opacity:0,duration:.9,ease:'power3.out'},'-=.65');
+        .from('.soundtrack-play',{y:25,opacity:0,duration:.7,ease:'power3.out'},'-=.65');
       gsap.from('.soundtrack-marquee span',{opacity:0,stagger:.08,duration:.6,scrollTrigger:{trigger:'.soundtrack-marquee',start:'top 95%',once:true}});
       gsap.from('.certifications span',{y:18,opacity:0,stagger:.07,duration:.6,scrollTrigger:{trigger:'.certifications',start:'top 92%',once:true}});
 
