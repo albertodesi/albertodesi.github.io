@@ -646,3 +646,88 @@
 @media(max-width:760px){
  .hero-ctas .arrow-icon{width:20px!important;height:20px!important;flex-basis:20px!important}
 }
+
+/* FINAL MOBILE ENDING — compact player, deliberate outro, complete footer */
+.soundtrack-marquee b.marquee-star{
+  position:relative!important;display:block!important;flex:0 0 14px!important;
+  width:14px!important;height:14px!important;font-size:0!important;line-height:0!important;
+  color:transparent!important;background:transparent!important;
+}
+.soundtrack-marquee b.marquee-star:before,
+.soundtrack-marquee b.marquee-star:after{
+  content:""!important;position:absolute!important;left:6px!important;top:0!important;
+  width:2px!important;height:14px!important;background:#ff742f!important;border-radius:2px!important;
+}
+.soundtrack-marquee b.marquee-star:after{transform:rotate(90deg)!important}
+@media(max-width:760px){
+  #soundtrack.soundtrack-section{padding:48px 6% 0!important}
+  #soundtrack .soundtrack-topline{font-size:8px!important;gap:12px!important}
+  #soundtrack .soundtrack-topline>span:last-child{max-width:125px!important;text-align:right!important}
+  #soundtrack .soundtrack-hero{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:24px!important;min-height:0!important;padding:42px 0 34px!important}
+  #soundtrack .soundtrack-copy{width:100%!important}
+  #soundtrack .soundtrack-copy h2{font-size:clamp(62px,14vw,92px)!important;line-height:.88!important;margin-bottom:22px!important}
+  #soundtrack .soundtrack-description{font-size:15px!important;line-height:1.65!important;max-width:34em!important}
+  #soundtrack .soundtrack-open{margin-top:22px!important}
+  #soundtrack .soundtrack-note{margin-top:26px!important;gap:14px!important;font-size:7px!important}
+  #soundtrack .soundtrack-art{
+    display:flex!important;flex-direction:column!important;align-items:center!important;
+    justify-content:flex-start!important;gap:18px!important;width:100%!important;
+    min-height:0!important;height:auto!important;padding:16px 0 0!important;
+  }
+  #soundtrack .soundtrack-record{
+    display:block!important;flex:0 0 auto!important;width:min(58vw,230px)!important;
+    max-width:230px!important;margin:0 auto!important;
+  }
+  #soundtrack .soundtrack-orbit-a{width:min(78vw,310px)!important;top:130px!important;left:50%!important}
+  #soundtrack .soundtrack-orbit-b{width:min(88vw,350px)!important;top:130px!important;left:50%!important}
+  #soundtrack .soundtrack-sticker{width:58px!important;height:58px!important;right:4%!important;top:0!important;font-size:8px!important}
+  #soundtrack .soundtrack-sticker b{font-size:14px!important}
+  #soundtrack .soundtrack-eq{left:3%!important;top:185px!important;bottom:auto!important;height:25px!important;gap:3px!important}
+  #soundtrack .soundtrack-eq i{width:2px!important}
+  #soundtrack .spotify-embed-wrap{
+    box-sizing:border-box!important;width:100%!important;max-width:100%!important;
+    margin:0!important;padding:9px!important;border-radius:2px!important;
+    background:#111319!important;box-shadow:0 14px 35px rgba(0,0,0,.28)!important;
+  }
+  #soundtrack .spotify-embed-label{font-size:7px!important;letter-spacing:.1em!important;padding:3px 3px 10px!important}
+  #soundtrack .spotify-embed-wrap iframe{
+    display:block!important;width:100%!important;height:152px!important;
+    min-height:152px!important;max-height:152px!important;border:0!important;
+    border-radius:8px!important;background:transparent!important;
+  }
+  #soundtrack .soundtrack-marquee{margin:0 -6vw!important}
+  #soundtrack .soundtrack-marquee>div{gap:20px!important;padding:17px 0!important;animation-duration:36s!important}
+  #soundtrack .soundtrack-marquee span{font-size:clamp(19px,5.5vw,27px)!important}
+  #soundtrack .soundtrack-marquee b.marquee-star{flex-basis:11px!important;width:11px!important;height:11px!important}
+  #soundtrack .soundtrack-marquee b.marquee-star:before,
+  #soundtrack .soundtrack-marquee b.marquee-star:after{left:5px!important;height:11px!important}
+  footer.site-footer{
+    display:flex!important;flex-direction:column!important;align-items:stretch!important;
+    justify-content:flex-start!important;gap:22px!important;min-height:0!important;
+    padding:30px 6% 34px!important;margin:0!important;
+    border-top:1px solid rgba(255,255,255,.18)!important;
+    background:#090a0c!important;
+  }
+  footer.site-footer .footer-brand{display:flex!important;order:0!important;align-items:flex-start!important;gap:8px!important}
+  footer.site-footer .footer-brand .wordmark{font-size:19px!important}
+  footer.site-footer .footer-brand>span{font-size:8px!important;letter-spacing:.12em!important}
+  footer.site-footer .footer-social{
+    order:1!important;display:flex!important;justify-content:flex-start!important;
+    align-items:center!important;flex-wrap:wrap!important;gap:22px!important;width:100%!important;
+  }
+  footer.site-footer .footer-social a.social-icon{width:32px!important;height:32px!important;flex:0 0 32px!important}
+  footer.site-footer .footer-social a.social-icon svg{width:24px!important;height:24px!important}
+  footer.site-footer .footer-meta{
+    order:2!important;display:flex!important;flex-direction:row!important;
+    justify-content:space-between!important;align-items:center!important;
+    gap:12px!important;width:100%!important;padding-top:16px!important;
+    border-top:1px solid rgba(255,255,255,.1)!important;
+    font-size:8px!important;letter-spacing:.08em!important;text-align:left!important;
+  }
+}
+@media(max-width:380px){
+ #soundtrack .spotify-embed-label>span:last-child{max-width:115px!important;text-align:right!important}
+ #soundtrack .soundtrack-topline>span:last-child{max-width:105px!important}
+ footer.site-footer .footer-social{gap:18px!important}
+ footer.site-footer .footer-meta{font-size:7px!important}
+}
