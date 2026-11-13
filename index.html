@@ -254,31 +254,49 @@
     const soundtrackPlay = document.querySelector('.soundtrack-play');
     const soundtrackSection = document.querySelector('#soundtrack');
     const spotifyPanel = document.querySelector('#spotify-embed-wrap');
-    let soundtrackRevealTimer = null;
-    soundtrackPlay?.addEventListener('click', () => {
-      const isOpen = soundtrackSection.classList.contains('playlist-open');
-      if (isOpen) {
-        soundtrackSection.classList.remove('playlist-open', 'record-has-spun');
-        soundtrackPlay.setAttribute('aria-expanded', 'false');
-        spotifyPanel.setAttribute('aria-hidden', 'true');
-        soundtrackPlay.lastElementChild.textContent = 'PLAY';
-        return;
-      }
-      if (soundtrackPlay.disabled) return;
-      soundtrackPlay.disabled = true;
-      soundtrackSection.classList.remove('playlist-open');
-      soundtrackSection.classList.add('record-spinning');
-      soundtrackPlay.lastElementChild.textContent = 'SPINNING';
-      soundtrackRevealTimer = window.setTimeout(() => {
+    if (soundtrackPlay && soundtrackSection && spotifyPanel) {
+      let revealFallback = null;
+      const revealPlaylist = () => {
+        if (!soundtrackSection.classList.contains('record-spinning')) return;
+        window.clearTimeout(revealFallback);
         soundtrackSection.classList.remove('record-spinning');
         soundtrackSection.classList.add('record-has-spun', 'playlist-open');
         soundtrackPlay.disabled = false;
         soundtrackPlay.setAttribute('aria-expanded', 'true');
         spotifyPanel.setAttribute('aria-hidden', 'false');
         soundtrackPlay.lastElementChild.textContent = 'CLOSE';
-        if (window.ScrollTrigger) ScrollTrigger.refresh();
-      }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 80 : 1250);
-    });
+        const frame = spotifyPanel.querySelector('iframe');
+        if (frame && !frame.src) frame.src = frame.dataset.src || '';
+        if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+      };
+      const record = soundtrackSection.querySelector('.soundtrack-record');
+      record?.addEventListener('animationend', event => {
+        if (event.animationName === 'vinyl-drop-spin') revealPlaylist();
+      });
+      soundtrackPlay.addEventListener('click', event => {
+        event.preventDefault();
+        if (soundtrackPlay.disabled) return;
+        const isOpen = soundtrackSection.classList.contains('playlist-open');
+        if (isOpen) {
+          soundtrackSection.classList.remove('playlist-open', 'record-has-spun', 'record-spinning');
+          spotifyPanel.setAttribute('aria-hidden', 'true');
+          soundtrackPlay.setAttribute('aria-expanded', 'false');
+          soundtrackPlay.lastElementChild.textContent = 'PLAY';
+          return;
+        }
+        soundtrackPlay.disabled = true;
+        soundtrackSection.classList.remove('playlist-open', 'record-has-spun');
+        spotifyPanel.setAttribute('aria-hidden', 'true');
+        soundtrackPlay.lastElementChild.textContent = 'SPINNING';
+        void record?.offsetWidth;
+        soundtrackSection.classList.add('record-spinning');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          revealPlaylist();
+        } else {
+          revealFallback = window.setTimeout(revealPlaylist, 1900);
+        }
+      });
+    }
     const lang = 'en';
     document.documentElement.lang = 'en';
     document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => closeMenu()));
