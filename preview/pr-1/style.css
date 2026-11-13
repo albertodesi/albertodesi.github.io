@@ -511,3 +511,97 @@
  #soundtrack .soundtrack-sticker{right:5%!important;top:0!important}
  #soundtrack .soundtrack-eq{left:2%!important;top:235px!important}
 }
+
+/* Education chapter — clear hierarchy and consistent alignment */
+#experience .education-journey{
+  max-width:1260px!important;
+  margin:clamp(72px,8vw,112px) auto 0!important;
+  padding-top:clamp(28px,4vw,48px)!important;
+  border-top:1px solid var(--line)!important;
+}
+#experience .education-heading{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  justify-items:start!important;
+  align-items:start!important;
+  gap:12px!important;
+  margin:0 0 28px!important;
+  text-align:left!important;
+}
+#experience .education-heading>span{
+  font-family:var(--mono)!important;
+  font-size:10px!important;
+  letter-spacing:.14em!important;
+  color:var(--orange)!important;
+}
+#experience .education-heading h3{
+  margin:0!important;
+  max-width:100%!important;
+  font-size:clamp(38px,5.2vw,68px)!important;
+  line-height:.98!important;
+  letter-spacing:-.065em!important;
+}
+#experience .education-heading>p{
+  max-width:540px!important;
+  margin:2px 0 0!important;
+  color:var(--muted)!important;
+  font-size:14px!important;
+  line-height:1.65!important;
+}
+#experience .education-track{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:12px!important;
+  border:0!important;
+  background:transparent!important;
+}
+#experience .education-track article{
+  position:relative!important;
+  min-height:190px!important;
+  padding:25px 24px!important;
+  border:1px solid var(--line)!important;
+  background:linear-gradient(145deg,rgba(19,24,34,.9),rgba(10,12,16,.96))!important;
+  transition:border-color .3s,transform .3s,background .3s!important;
+}
+#experience .education-track article:hover{
+  border-color:rgba(52,124,255,.65)!important;
+  background:#111a2a!important;
+  transform:translateY(-4px)!important;
+}
+#experience .education-track article>span{
+  font-family:var(--mono)!important;
+  font-size:9px!important;
+  letter-spacing:.1em!important;
+  color:var(--orange)!important;
+}
+#experience .education-track h4{
+  margin:26px 0 12px!important;
+  font-size:clamp(16px,1.35vw,19px)!important;
+  line-height:1.35!important;
+  letter-spacing:-.035em!important;
+}
+#experience .education-track p{
+  margin:0!important;
+  color:var(--muted)!important;
+  font-size:12px!important;
+  line-height:1.6!important;
+}
+#experience .education-track p.education-degree{
+  color:var(--blue)!important;
+  font-size:11px!important;
+  font-weight:600!important;
+  margin-bottom:2px!important;
+}
+@media(max-width:900px){
+ #experience .education-track{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:600px){
+ #experience .education-journey{margin-top:64px!important;padding-top:25px!important}
+ #experience .education-heading h3{font-size:clamp(38px,10vw,54px)!important}
+ #experience .education-track{grid-template-columns:1fr!important;gap:9px!important}
+ #experience .education-track article{min-height:0!important;padding:21px!important}
+ #experience .education-track h4{margin:17px 0 9px!important}
+}
+/* Playlist is a first-class destination in both navigation layouts */
+.desktop-nav a[href="#soundtrack"],.mobile-menu nav a[href="#soundtrack"]{color:var(--orange)!important}
+.desktop-nav a[href="#soundtrack"]:after{background:var(--orange)!important}
