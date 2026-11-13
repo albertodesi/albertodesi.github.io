@@ -216,14 +216,11 @@
           <div class="record-grooves"></div>
           <div class="record-label-image"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20320%20320%22%3E%3Crect%20width%3D%22320%22%20height%3D%22320%22%20fill%3D%22%2308090d%22%2F%3E%3Ccircle%20cx%3D%2231%22%20cy%3D%2231%22%20r%3D%2213%22%20fill%3D%22%231ed760%22%2F%3E%3Cpath%20d%3D%22M21%2029c7-4%2015-3%2021%201M22%2034c6-3%2012-2%2017%201M24%2039c4-2%209-1%2012%201%22%20fill%3D%22none%22%20stroke%3D%22%23071009%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%22154%22%20fill%3D%22%23f5f5f5%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2227%22%20font-weight%3D%22700%22%3E%40albertodesi%3C%2Ftext%3E%3Cpath%20d%3D%22M246%20139v-8a13%2013%200%200%200-26%200v8m-4-1v12m34-12v12%22%20fill%3D%22none%22%20stroke%3D%22%231ed760%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M118%20170h84%22%20stroke%3D%22%231ed760%22%20stroke-width%3D%222%22%2F%3E%3Ctext%20x%3D%22160%22%20y%3D%22207%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2227%22%20font-weight%3D%22700%22%3Ethe%20selection%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Playlist cover: @albertodesi the selection" /></div>
         </div>
-        <button class="soundtrack-play" type="button" aria-expanded="false" aria-controls="spotify-embed-wrap"><span class="soundtrack-play-icon" aria-hidden="true"></span><span>PLAY</span></button>
+        <button class="soundtrack-play" type="button" aria-expanded="false" aria-label="Play or pause the playlist" aria-pressed="false"><span class="soundtrack-play-icon" aria-hidden="true"></span><span>PLAY</span></button>
         <div class="soundtrack-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       </div>
     </div>
-    <div class="spotify-embed-wrap" id="spotify-embed-wrap" aria-hidden="true">
-      <div class="spotify-embed-label"><span><i></i> THE SELECTION</span><span>THE FULL PLAYLIST · LISTEN ON SPOTIFY</span></div>
-      <iframe title="Alberto Desiderà — the selection Spotify playlist" src="https://open.spotify.com/embed/playlist/2BDxxVa5zZWtiHTncQdhWZ?utm_source=generator&amp;theme=0" width="100%" height="450" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-    </div>
+    <div id="spotify-hidden-player" class="spotify-hidden-player" aria-hidden="true"></div>
     <div class="soundtrack-marquee" aria-hidden="true"><div><span>DO OR DO NOT. THERE IS NO TRY.</span><b class="marquee-star" aria-hidden="true"></b><span>DO OR DO NOT. THERE IS NO TRY.</span><b class="marquee-star" aria-hidden="true"></b></div></div>
   </div>
 </section>
@@ -253,50 +250,70 @@
     const body = document.body;
     const soundtrackPlay = document.querySelector('.soundtrack-play');
     const soundtrackSection = document.querySelector('#soundtrack');
-    const spotifyPanel = document.querySelector('#spotify-embed-wrap');
-    if (soundtrackPlay && soundtrackSection && spotifyPanel) {
-      let revealFallback = null;
-      const revealPlaylist = () => {
-        if (!soundtrackSection.classList.contains('record-spinning')) return;
-        window.clearTimeout(revealFallback);
-        soundtrackSection.classList.remove('record-spinning');
-        soundtrackSection.classList.add('record-has-spun', 'playlist-open');
-        soundtrackPlay.disabled = false;
-        soundtrackPlay.setAttribute('aria-expanded', 'true');
-        spotifyPanel.setAttribute('aria-hidden', 'false');
-        soundtrackPlay.lastElementChild.textContent = 'CLOSE';
-        const frame = spotifyPanel.querySelector('iframe');
-        if (frame && !frame.src) frame.src = frame.dataset.src || '';
-        if (window.ScrollTrigger) window.ScrollTrigger.refresh();
-      };
-      const record = soundtrackSection.querySelector('.soundtrack-record');
-      record?.addEventListener('animationend', event => {
-        if (event.animationName === 'vinyl-drop-spin') revealPlaylist();
-      });
-      soundtrackPlay.addEventListener('click', event => {
-        event.preventDefault();
-        if (soundtrackPlay.disabled) return;
-        const isOpen = soundtrackSection.classList.contains('playlist-open');
-        if (isOpen) {
-          soundtrackSection.classList.remove('playlist-open', 'record-has-spun', 'record-spinning');
-          spotifyPanel.setAttribute('aria-hidden', 'true');
-          soundtrackPlay.setAttribute('aria-expanded', 'false');
-          soundtrackPlay.lastElementChild.textContent = 'PLAY';
-          return;
-        }
-        soundtrackPlay.disabled = true;
-        soundtrackSection.classList.remove('playlist-open', 'record-has-spun');
-        spotifyPanel.setAttribute('aria-hidden', 'true');
-        soundtrackPlay.lastElementChild.textContent = 'SPINNING';
-        void record?.offsetWidth;
-        soundtrackSection.classList.add('record-spinning');
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          revealPlaylist();
-        } else {
-          revealFallback = window.setTimeout(revealPlaylist, 1900);
-        }
+    const spotifyMount = document.querySelector('#spotify-hidden-player');
+    const playlistUri = 'spotify:playlist:2BDxxVa5zZWtiHTncQdhWZ';
+    let spotifyApi = null;
+    let spotifyController = null;
+    let spotifyReady = false;
+    let spotifyPendingPlay = false;
+    let spotifyScriptRequested = false;
+
+    window.onSpotifyIframeApiReady = IFrameAPI => {
+      spotifyApi = IFrameAPI;
+      if (spotifyPendingPlay) createHiddenSpotifyPlayer();
+    };
+
+    function createHiddenSpotifyPlayer() {
+      if (!spotifyApi || !spotifyMount || spotifyController) return;
+      spotifyPendingPlay = false;
+      spotifyApi.createController(spotifyMount, {
+        uri: playlistUri,
+        width: 280,
+        height: 80
+      }, controller => {
+        spotifyController = controller;
+        controller.addListener('ready', () => {
+          spotifyReady = true;
+          controller.play();
+          soundtrackPlay.disabled = false;
+          soundtrackPlay.setAttribute('aria-pressed', 'true');
+          soundtrackPlay.lastElementChild.textContent = 'PAUSE';
+          soundtrackSection.classList.add('soundtrack-playing');
+        });
+        controller.addListener('playback_update', event => {
+          const playing = !event.data.isPaused;
+          soundtrackPlay.setAttribute('aria-pressed', String(playing));
+          soundtrackPlay.lastElementChild.textContent = playing ? 'PAUSE' : 'PLAY';
+          soundtrackSection.classList.toggle('soundtrack-playing', playing);
+        });
       });
     }
+
+    soundtrackPlay?.addEventListener('click', event => {
+      event.preventDefault();
+      if (soundtrackPlay.disabled) return;
+      if (spotifyController && spotifyReady) {
+        spotifyController.togglePlay();
+        return;
+      }
+      soundtrackPlay.disabled = true;
+      soundtrackPlay.lastElementChild.textContent = 'LOADING';
+      spotifyPendingPlay = true;
+      if (spotifyApi) {
+        createHiddenSpotifyPlayer();
+      } else if (!spotifyScriptRequested) {
+        spotifyScriptRequested = true;
+        const script = document.createElement('script');
+        script.src = 'https://open.spotify.com/embed/iframe-api/v1';
+        script.async = true;
+        script.onerror = () => {
+          soundtrackPlay.disabled = false;
+          soundtrackPlay.lastElementChild.textContent = 'RETRY';
+          spotifyPendingPlay = false;
+        };
+        document.body.appendChild(script);
+      }
+    });
     const lang = 'en';
     document.documentElement.lang = 'en';
     document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => closeMenu()));
