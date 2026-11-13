@@ -361,3 +361,30 @@
  #experience .journey-right .journey-marker,
  #experience .journey-left .journey-marker{top:4px!important}
 }
+
+/* Hero portrait — clean editorial rectangle, no arch or tilt */
+.hero-visual .portrait-frame{
+  width:clamp(300px,31vw,450px)!important;
+  height:clamp(390px,43vw,560px)!important;
+  aspect-ratio:4/5!important;
+  border-radius:2px!important;
+  transform:none!important;
+  overflow:hidden!important;
+  border:1px solid rgba(243,242,237,.22)!important;
+  box-shadow:0 28px 85px rgba(0,0,0,.48)!important;
+  background:#101a27!important;
+}
+.hero-visual .portrait-frame img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center 30%!important;
+  filter:saturate(.82) contrast(1.04)!important;
+}
+.hero-visual .portrait-frame:after{
+  background:linear-gradient(180deg,transparent 58%,rgba(9,10,12,.16))!important;
+}
+@media(max-width:760px){
+ .hero-visual .portrait-frame{width:min(76vw,350px)!important;height:auto!important;aspect-ratio:4/5!important}
+}
