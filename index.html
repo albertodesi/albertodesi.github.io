@@ -238,7 +238,7 @@
     <a href="https://abc.xyz/" target="_blank" rel="noopener noreferrer" class="hidden-link" aria-label="Easter egg 1"></a>
     <a href="https://web.archive.org/web/20220331063912/http://www.hooli.xyz/" target="_blank" rel="noopener noreferrer" class="hidden-link" aria-label="Easter egg 2"></a>
     <a href="http://www.lphishiring.com/" target="_blank" rel="noopener noreferrer" class="hidden-link" aria-label="Easter egg 3"></a>
-    <a href="https://www.google.com/search?hl=en&amp;gl=us&amp;ei=fP8sX4LuJ4WdkgWr_KjwCQ&amp;q=recursion&amp;_gl=1*1maxqjn*_gcl_au*Nzk3NzA0OTc3LjE2OTI4Njc3NQ." target="_blank" rel="noopener noreferrer" class="hidden-link" aria-label="Easter egg 4"></a>
+    <a href="https://www.google.com/search?hl=en&amp;gl=us&amp;ei=fP8sX4LuJ4WdkgWr_KjwCQ&amp;q=recursion&amp;_gl=1*1maxqjn*_gcl_au*Nzk3NzA0OTc3LjE2OTI5NzU." target="_blank" rel="noopener noreferrer" class="hidden-link" aria-label="Easter egg 4"></a>
   </div>
   <div class="footer-meta"><span>ITALY · CET</span><span>© <span id="year"></span> ALBERTO.DESI</span></div>
 </footer>
@@ -313,11 +313,10 @@
 
       const soundtrack=gsap.timeline({scrollTrigger:{trigger:'.soundtrack-section',start:'top 72%',once:true}});
       soundtrack.from('.soundtrack-topline',{y:18,opacity:0,duration:.7})
-        .from('.soundtrack-eyebrow,.soundtrack-title span,.soundtrack-title em',{y:65,opacity:0,stagger:.12,duration:1,ease:'power4.out'},'-=.25')
+        .from('.soundtrack-eyebrow,.soundtrack-copy h2 span,.soundtrack-copy h2 em',{y:65,opacity:0,stagger:.12,duration:1,ease:'power4.out'},'-=.25')
         .from('.soundtrack-description,.soundtrack-open',{y:25,opacity:0,stagger:.12,duration:.7},'-=.55')
-        .from('.vinyl-disc',{scale:.65,opacity:0,rotate:-35,duration:1.35,ease:'expo.out'},'-=1')
-        .from('.spotify-player',{y:80,opacity:0,rotate:5,duration:1,ease:'power3.out'},'-=.8')
-        .from('.soundtrack-footnote',{opacity:0,y:12,duration:.6},'-=.45');
+        .from('.soundtrack-record',{scale:.65,opacity:0,rotate:-35,duration:1.35,ease:'expo.out'},'-=1')
+        .from('.spotify-embed-wrap',{y:65,opacity:0,duration:.9,ease:'power3.out'},'-=.65');
       gsap.from('.soundtrack-marquee span',{opacity:0,stagger:.08,duration:.6,scrollTrigger:{trigger:'.soundtrack-marquee',start:'top 95%',once:true}});
       gsap.from('.certifications span',{y:18,opacity:0,stagger:.07,duration:.6,scrollTrigger:{trigger:'.certifications',start:'top 92%',once:true}});
 
