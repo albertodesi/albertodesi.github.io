@@ -731,3 +731,67 @@
  footer.site-footer .footer-social{gap:18px!important}
  footer.site-footer .footer-meta{font-size:7px!important}
 }
+
+/* Vinyl interaction v2 — artwork at the spindle, playlist revealed on play */
+#soundtrack .soundtrack-art{
+  display:grid!important;grid-template-columns:1fr!important;place-items:center!important;
+  min-height:clamp(430px,43vw,620px)!important;position:relative!important;
+}
+#soundtrack .soundtrack-record{
+  width:clamp(300px,34vw,470px)!important;max-width:78vw!important;
+  animation:none!important;transform:rotate(0deg);
+  transition:transform .9s cubic-bezier(.2,.75,.25,1)!important;
+  z-index:2!important;
+}
+#soundtrack .record-label-image{
+  position:absolute!important;z-index:3!important;left:50%!important;top:50%!important;
+  width:35%!important;aspect-ratio:1!important;overflow:hidden!important;
+  border-radius:50%!important;transform:translate(-50%,-50%)!important;
+  background:#08090d!important;box-shadow:0 0 0 7px rgba(0,0,0,.42),0 0 25px rgba(43,112,255,.28)!important;
+}
+#soundtrack .record-label-image img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important}
+#soundtrack.record-spinning .soundtrack-record{animation:vinyl-drop-spin 1.25s cubic-bezier(.16,.8,.22,1) forwards!important}
+#soundtrack.record-has-spun .soundtrack-record{transform:rotate(720deg)!important}
+@keyframes vinyl-drop-spin{0%{transform:rotate(0) scale(1)}35%{transform:rotate(300deg) scale(1.045)}100%{transform:rotate(720deg) scale(1)}}
+#soundtrack .soundtrack-sticker{display:none!important}
+#soundtrack .soundtrack-play{
+  position:absolute!important;z-index:5!important;right:2%!important;top:6%!important;
+  width:88px!important;height:88px!important;border:0!important;border-radius:50%!important;
+  display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  gap:7px!important;background:#ff742f!important;color:#090a0c!important;
+  font-family:var(--mono)!important;font-size:10px!important;letter-spacing:.14em!important;
+  cursor:pointer!important;box-shadow:0 12px 40px rgba(255,116,47,.18)!important;
+  transition:transform .3s,background .3s!important;
+}
+#soundtrack .soundtrack-play:hover{transform:scale(1.07) rotate(5deg)!important;background:#ff8950!important}
+#soundtrack .soundtrack-play:disabled{cursor:wait!important;opacity:.85!important}
+#soundtrack .soundtrack-play-icon{position:relative!important;display:block!important;width:0!important;height:0!important;border-top:9px solid transparent!important;border-bottom:9px solid transparent!important;border-left:14px solid #090a0c!important;margin-left:4px!important}
+#soundtrack .soundtrack-play:focus-visible{outline:2px solid #f4f3ef!important;outline-offset:5px!important}
+#soundtrack .spotify-embed-wrap{
+  box-sizing:border-box!important;max-width:940px!important;width:100%!important;
+  max-height:0!important;opacity:0!important;overflow:hidden!important;
+  margin:0 auto!important;padding:0 14px!important;border:1px solid transparent!important;
+  transform:translateY(36px)!important;pointer-events:none!important;
+  transition:max-height .8s ease,opacity .6s ease,transform .8s ease,margin .8s ease,padding .8s ease!important;
+}
+#soundtrack.playlist-open .spotify-embed-wrap{
+  max-height:540px!important;opacity:1!important;overflow:hidden!important;
+  margin:0 auto 58px!important;padding:14px!important;
+  border-color:rgba(255,255,255,.14)!important;transform:translateY(0)!important;
+  pointer-events:auto!important;
+}
+#soundtrack .spotify-embed-wrap iframe{height:450px!important;max-height:450px!important}
+@media(max-width:760px){
+ #soundtrack .soundtrack-art{min-height:clamp(340px,100vw,430px)!important;height:auto!important;display:grid!important;place-items:center!important;padding:12px 0 0!important}
+ #soundtrack .soundtrack-record{width:min(76vw,330px)!important;max-width:330px!important}
+ #soundtrack .soundtrack-orbit-a{width:min(88vw,380px)!important;top:50%!important}
+ #soundtrack .soundtrack-orbit-b{width:min(98vw,420px)!important;top:50%!important}
+ #soundtrack .soundtrack-play{width:68px!important;height:68px!important;right:2%!important;top:0!important;font-size:8px!important}
+ #soundtrack .soundtrack-play-icon{border-top-width:7px!important;border-bottom-width:7px!important;border-left-width:11px!important}
+ #soundtrack .soundtrack-eq{top:auto!important;bottom:8%!important;left:3%!important}
+ #soundtrack.playlist-open .spotify-embed-wrap{max-height:570px!important;margin:0 auto 38px!important;padding:9px!important}
+ #soundtrack .spotify-embed-wrap iframe{height:480px!important;max-height:480px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ #soundtrack .soundtrack-record,#soundtrack .spotify-embed-wrap,#soundtrack .soundtrack-play{animation:none!important;transition:none!important}
+}
