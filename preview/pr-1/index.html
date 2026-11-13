@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/preview/pr-1/style.css?v=6">
+  <link rel="stylesheet" href="/preview/pr-1/style.css?v=7">
   <title>alberto.desi — Digital thinking. Human perspective.</title>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Alberto Desiderà","url":"https://alberto.desi/","jobTitle":"Sales Specialist","worksFor":{"@type":"Organization","name":"Arsenalia"},"sameAs":["https://www.linkedin.com/in/albertodesidera","https://github.com/albertodesi","https://www.instagram.com/albertodesi/"]}
@@ -264,7 +264,7 @@
     }
     function createHiddenSpotifyPlayer(){
       if(!spotifyApi||!spotifyMount||spotifyController)return;
-      spotifyApi.createController(spotifyMount,{uri:playlistUri,width:1,height:1},controller=>{
+      spotifyApi.createController(spotifyMount,{uri:playlistUri,width:280,height:152},controller=>{
         spotifyController=controller;
         controller.addListener('ready',()=>{spotifyReady=true;soundtrackPlay.disabled=false;soundtrackPlay.lastElementChild.textContent='PLAY';});
         controller.addListener('playback_update',event=>setSoundtrackState(!event.data.isPaused));
