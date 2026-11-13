@@ -388,3 +388,10 @@
 @media(max-width:760px){
  .hero-visual .portrait-frame{width:min(76vw,350px)!important;height:auto!important;aspect-ratio:4/5!important}
 }
+
+/* Expertise rows are informational, not links — no decorative arrow column */
+#expertise .expertise-item{grid-template-columns:70px minmax(0,1fr)!important}
+#expertise .expertise-arrow{display:none!important}
+@media(max-width:760px){
+ #expertise .expertise-item{grid-template-columns:34px minmax(0,1fr)!important}
+}
