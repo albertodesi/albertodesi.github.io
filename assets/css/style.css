@@ -739,7 +739,7 @@
 }
 #soundtrack .soundtrack-record{
   width:clamp(300px,34vw,470px)!important;max-width:78vw!important;
-  animation:none!important;transform:rotate(0deg)!important;
+  animation:none!important;transform:rotate(0deg);
   transition:transform .9s cubic-bezier(.2,.75,.25,1)!important;
   z-index:2!important;
 }
