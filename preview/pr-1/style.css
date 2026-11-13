@@ -851,10 +851,63 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
   #soundtrack.soundtrack-playing .soundtrack-record{animation:none!important}
 }
 
-.signature-close{display:flex;justify-content:center;align-items:center;padding:clamp(30px,5vw,64px) 6vw clamp(42px,6vw,76px);background:#090a0c;border-top:1px solid rgba(255,255,255,.08);overflow:hidden}
-.signature-close img{display:block;width:min(467px,72vw);height:auto;max-height:116px;object-fit:contain;opacity:1}
+/* Handwritten sign-off — final gesture below the footer */
+.signature-close{
+  display:flex;justify-content:center;align-items:center;
+  padding:clamp(30px,5vw,64px) 6vw clamp(42px,6vw,76px);
+  background:#090a0c;border-top:1px solid rgba(255,255,255,.08);
+  overflow:hidden;
+}
+.signature-close img{
+  display:block;width:min(467px,72vw);height:auto;max-height:116px;
+  object-fit:contain;opacity:1;
+}
+.signature-close.signature-pending img{
+  clip-path:inset(0 100% 0 0);
+}
+.signature-close.signature-animate img{
+  animation:signature-write 3.2s cubic-bezier(.65,0,.25,1) both;
+}
+@keyframes signature-write{
+  0%{clip-path:inset(0 100% 0 0);filter:drop-shadow(0 0 0 rgba(52,124,255,0))}
+  72%{clip-path:inset(0 0 0 0);filter:drop-shadow(0 0 7px rgba(52,124,255,.18))}
+  100%{clip-path:inset(0 0 0 0);filter:drop-shadow(0 0 0 rgba(52,124,255,0))}
+}
+@media(max-width:600px){
+ .signature-close{padding:34px 7vw 48px}
+ .signature-close img{width:min(390px,86vw)}
+}
+@media(prefers-reduced-motion:reduce){
+ .signature-close.signature-pending img{clip-path:none}
+ .signature-close.signature-animate img{animation:none}
+}
+
+/* Vinyl-only Spotify control. The embed is an invisible audio transport, never UI. */
+#spotify-hidden-player,.spotify-hidden-player{display:block!important;position:fixed!important;left:-10000px!important;top:0!important;width:1px!important;height:1px!important;max-width:1px!important;max-height:1px!important;overflow:hidden!important;clip-path:inset(100%)!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;z-index:-1!important}
+#spotify-hidden-player iframe,.spotify-hidden-player iframe{display:block!important;width:1px!important;height:1px!important;border:0!important;opacity:0!important;visibility:hidden!important}
+#soundtrack.soundtrack-playing .soundtrack-record{animation:vinyl-continuous-spin 3.8s linear infinite!important}
+@keyframes vinyl-continuous-spin{to{transform:rotate(360deg)}}
+#soundtrack .soundtrack-play.is-playing .soundtrack-play-icon{width:14px!important;height:18px!important;border:0!important;margin:0!important;background:linear-gradient(to right,#090a0c 0 4px,transparent 4px 10px,#090a0c 10px 14px)!important}
+#soundtrack .spotify-embed-wrap,#soundtrack .spotify-embed-label{display:none!important}
+#soundtrack .record-label-image{width:43%!important}
+#soundtrack .record-label-image img{border-radius:50%!important}
+.signature-close{border-top:0!important;padding-top:24px!important}
+.signature-close img{width:min(467px,68vw)!important;max-height:116px!important;filter:none!important}
 .signature-close.signature-pending img{clip-path:inset(0 100% 0 0)}
-.signature-close.signature-animate img{animation:signature-write 3.2s cubic-bezier(.65,0,.25,1) both}
-@keyframes signature-write{0%{clip-path:inset(0 100% 0 0);filter:drop-shadow(0 0 0 rgba(52,124,255,0))}72%{clip-path:inset(0 0 0 0);filter:drop-shadow(0 0 7px rgba(52,124,255,.18))}100%{clip-path:inset(0 0 0 0);filter:drop-shadow(0 0 0 rgba(52,124,255,0))}}
-@media(max-width:600px){.signature-close{padding:34px 7vw 48px}.signature-close img{width:min(390px,86vw)}}
-@media(prefers-reduced-motion:reduce){.signature-close.signature-pending img{clip-path:none}.signature-close.signature-animate img{animation:none}}
+.signature-close.signature-animate img{animation:signature-write 2.8s linear both}
+@media(max-width:600px){.signature-close{padding:20px 7vw 38px!important}.signature-close img{width:min(390px,84vw)!important}}
+
+/* Vinyl-only Spotify control: audio transport remains completely off-screen */
+#spotify-hidden-player,.spotify-hidden-player{display:block!important;position:fixed!important;left:-10000px!important;top:0!important;width:1px!important;height:1px!important;max-width:1px!important;max-height:1px!important;overflow:hidden!important;clip-path:inset(100%)!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;z-index:-1!important}
+#spotify-hidden-player iframe,.spotify-hidden-player iframe{display:block!important;width:1px!important;height:1px!important;border:0!important;opacity:0!important;visibility:hidden!important}
+#soundtrack.soundtrack-playing .soundtrack-record{animation:vinyl-continuous-spin 3.8s linear infinite!important}
+@keyframes vinyl-continuous-spin{to{transform:rotate(360deg)}}
+#soundtrack .soundtrack-play.is-playing .soundtrack-play-icon{width:14px!important;height:18px!important;border:0!important;margin:0!important;background:linear-gradient(to right,#090a0c 0 4px,transparent 4px 10px,#090a0c 10px 14px)!important}
+#soundtrack .spotify-embed-wrap,#soundtrack .spotify-embed-label{display:none!important}
+#soundtrack .record-label-image{width:43%!important}
+#soundtrack .record-label-image img{border-radius:50%!important}
+.signature-close{border-top:0!important;padding-top:24px!important}
+.signature-close img{width:min(467px,68vw)!important;max-height:116px!important;filter:none!important}
+.signature-close.signature-pending img{clip-path:inset(0 100% 0 0)}
+.signature-close.signature-animate img{animation:signature-write 2.8s linear both}
+@media(max-width:600px){.signature-close{padding:20px 7vw 38px!important}.signature-close img{width:min(390px,84vw)!important}}
