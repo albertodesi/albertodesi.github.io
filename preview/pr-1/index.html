@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/preview/pr-1/style.css?v=2">
+  <link rel="stylesheet" href="/preview/pr-1/style.css?v=3">
   <title>alberto.desi — Digital thinking. Human perspective.</title>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Alberto Desiderà","url":"https://alberto.desi/","jobTitle":"Sales Specialist","worksFor":{"@type":"Organization","name":"Arsenalia"},"sameAs":["https://www.linkedin.com/in/albertodesidera","https://github.com/albertodesi","https://www.instagram.com/albertodesi/"]}
@@ -255,31 +255,49 @@
     const soundtrackPlay = document.querySelector('.soundtrack-play');
     const soundtrackSection = document.querySelector('#soundtrack');
     const spotifyPanel = document.querySelector('#spotify-embed-wrap');
-    let soundtrackRevealTimer = null;
-    soundtrackPlay?.addEventListener('click', () => {
-      const isOpen = soundtrackSection.classList.contains('playlist-open');
-      if (isOpen) {
-        soundtrackSection.classList.remove('playlist-open', 'record-has-spun');
-        soundtrackPlay.setAttribute('aria-expanded', 'false');
-        spotifyPanel.setAttribute('aria-hidden', 'true');
-        soundtrackPlay.lastElementChild.textContent = 'PLAY';
-        return;
-      }
-      if (soundtrackPlay.disabled) return;
-      soundtrackPlay.disabled = true;
-      soundtrackSection.classList.remove('playlist-open');
-      soundtrackSection.classList.add('record-spinning');
-      soundtrackPlay.lastElementChild.textContent = 'SPINNING';
-      soundtrackRevealTimer = window.setTimeout(() => {
+    if (soundtrackPlay && soundtrackSection && spotifyPanel) {
+      let revealFallback = null;
+      const revealPlaylist = () => {
+        if (!soundtrackSection.classList.contains('record-spinning')) return;
+        window.clearTimeout(revealFallback);
         soundtrackSection.classList.remove('record-spinning');
         soundtrackSection.classList.add('record-has-spun', 'playlist-open');
         soundtrackPlay.disabled = false;
         soundtrackPlay.setAttribute('aria-expanded', 'true');
         spotifyPanel.setAttribute('aria-hidden', 'false');
         soundtrackPlay.lastElementChild.textContent = 'CLOSE';
-        if (window.ScrollTrigger) ScrollTrigger.refresh();
-      }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 80 : 1250);
-    });
+        const frame = spotifyPanel.querySelector('iframe');
+        if (frame && !frame.src) frame.src = frame.dataset.src || '';
+        if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+      };
+      const record = soundtrackSection.querySelector('.soundtrack-record');
+      record?.addEventListener('animationend', event => {
+        if (event.animationName === 'vinyl-drop-spin') revealPlaylist();
+      });
+      soundtrackPlay.addEventListener('click', event => {
+        event.preventDefault();
+        if (soundtrackPlay.disabled) return;
+        const isOpen = soundtrackSection.classList.contains('playlist-open');
+        if (isOpen) {
+          soundtrackSection.classList.remove('playlist-open', 'record-has-spun', 'record-spinning');
+          spotifyPanel.setAttribute('aria-hidden', 'true');
+          soundtrackPlay.setAttribute('aria-expanded', 'false');
+          soundtrackPlay.lastElementChild.textContent = 'PLAY';
+          return;
+        }
+        soundtrackPlay.disabled = true;
+        soundtrackSection.classList.remove('playlist-open', 'record-has-spun');
+        spotifyPanel.setAttribute('aria-hidden', 'true');
+        soundtrackPlay.lastElementChild.textContent = 'SPINNING';
+        void record?.offsetWidth;
+        soundtrackSection.classList.add('record-spinning');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          revealPlaylist();
+        } else {
+          revealFallback = window.setTimeout(revealPlaylist, 1900);
+        }
+      });
+    }
     const lang = 'en';
     document.documentElement.lang = 'en';
     document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => closeMenu()));
