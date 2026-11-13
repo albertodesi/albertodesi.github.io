@@ -317,3 +317,47 @@
  #experience .experience-story-intro .experience-summary{margin:22px 0 0!important}
  #experience .experience-story-intro .section-heading{font-size:clamp(48px,12vw,76px)!important}
 }
+
+/* Career timeline: keep date labels inside their own column, never on the spine */
+#experience .journey-entry{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:12px!important;
+}
+#experience .journey-date,
+#experience .journey-right .journey-date,
+#experience .journey-left .journey-date{
+  position:relative!important;
+  inset:auto!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:baseline!important;
+  justify-content:flex-start!important;
+  gap:12px!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0 0 0 2px!important;
+  text-align:left!important;
+  white-space:normal!important;
+}
+#experience .journey-left .journey-date{justify-content:flex-end!important;text-align:right!important;padding:0 2px 0 0!important}
+#experience .journey-date strong{font-size:clamp(24px,2.2vw,32px)!important;line-height:1!important}
+#experience .journey-date span{font-size:8px!important;letter-spacing:.1em!important}
+#experience .journey-marker,
+#experience .journey-right .journey-marker,
+#experience .journey-left .journey-marker{
+  top:12px!important;
+}
+#experience .journey-panel{width:100%!important;min-width:0!important}
+@media(max-width:760px){
+ #experience .journey-entry{gap:10px!important}
+ #experience .journey-date,
+ #experience .journey-right .journey-date,
+ #experience .journey-left .journey-date{justify-content:flex-start!important;text-align:left!important;padding:0 0 0 2px!important}
+ #experience .journey-date strong{font-size:25px!important}
+ #experience .journey-marker,
+ #experience .journey-right .journey-marker,
+ #experience .journey-left .journey-marker{top:4px!important}
+}
