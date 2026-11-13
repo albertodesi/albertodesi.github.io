@@ -950,3 +950,8 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
 @media(prefers-reduced-motion:reduce){
  .portrait-frame,.hero-visual{transform:none!important;animation:none!important}
 }
+
+/* Spotify Web Playback SDK audio engine — deliberately no visible player UI */
+.spotify-hidden-player{position:fixed!important;left:-10000px!important;top:0!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important;z-index:-1!important}
+.spotify-hidden-player iframe{width:1px!important;height:1px!important;border:0!important;opacity:0!important;pointer-events:none!important}
+.soundtrack-play:disabled{opacity:.68!important;cursor:wait!important}
