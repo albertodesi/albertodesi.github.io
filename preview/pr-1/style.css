@@ -395,3 +395,69 @@
 @media(max-width:760px){
  #expertise .expertise-item{grid-template-columns:34px minmax(0,1fr)!important}
 }
+
+/* Soundtrack v2 — vinyl and playable playlist share the same hero composition */
+#soundtrack .soundtrack-hero{
+  grid-template-columns:minmax(0,1fr) minmax(440px,.92fr)!important;
+  align-items:center!important;
+  gap:clamp(38px,5vw,86px)!important;
+  min-height:0!important;
+  padding:clamp(48px,6vw,88px) 0 64px!important;
+}
+#soundtrack .soundtrack-art{
+  min-height:0!important;
+  height:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:24px!important;
+  padding:18px 0 0!important;
+}
+#soundtrack .soundtrack-record{
+  flex:0 0 auto!important;
+  width:clamp(220px,19vw,285px)!important;
+  margin:0 auto!important;
+  z-index:1!important;
+}
+#soundtrack .soundtrack-orbit-a{width:clamp(360px,35vw,510px)!important;top:155px!important}
+#soundtrack .soundtrack-orbit-b{width:clamp(430px,42vw,610px)!important;top:155px!important}
+#soundtrack .soundtrack-sticker{right:4%!important;top:2%!important;z-index:2!important}
+#soundtrack .soundtrack-eq{left:3%!important;bottom:auto!important;top:275px!important}
+#soundtrack .spotify-embed-wrap{
+  position:relative!important;
+  z-index:3!important;
+  width:100%!important;
+  max-width:560px!important;
+  margin:0!important;
+  padding:12px!important;
+  background:rgba(18,20,26,.96)!important;
+  border:1px solid rgba(255,255,255,.16)!important;
+  box-shadow:0 18px 55px rgba(0,0,0,.42)!important;
+}
+#soundtrack .spotify-embed-label{padding:4px 4px 11px!important}
+#soundtrack .spotify-embed-wrap iframe{height:300px!important}
+#soundtrack .soundtrack-marquee{margin-top:0!important}
+@media(max-width:900px){
+ #soundtrack .soundtrack-hero{grid-template-columns:minmax(0,1fr) minmax(350px,.9fr)!important;gap:28px!important}
+ #soundtrack .soundtrack-copy h2{font-size:clamp(62px,8vw,100px)!important}
+ #soundtrack .soundtrack-art{gap:18px!important}
+ #soundtrack .soundtrack-record{width:clamp(205px,25vw,260px)!important}
+ #soundtrack .spotify-embed-wrap iframe{height:285px!important}
+}
+@media(max-width:760px){
+ #soundtrack .soundtrack-hero{grid-template-columns:1fr!important;gap:25px!important;padding:48px 0 34px!important}
+ #soundtrack .soundtrack-copy h2{font-size:clamp(66px,14vw,100px)!important}
+ #soundtrack .soundtrack-art{min-height:0!important;width:100%!important;gap:18px!important;padding:12px 0 0!important}
+ #soundtrack .soundtrack-record{width:min(62vw,260px)!important}
+ #soundtrack .soundtrack-orbit-a{width:min(88vw,400px)!important;top:140px!important}
+ #soundtrack .soundtrack-orbit-b{width:min(98vw,460px)!important;top:140px!important}
+ #soundtrack .soundtrack-sticker{right:5%!important;top:0!important;width:66px!important;height:66px!important;font-size:9px!important}
+ #soundtrack .soundtrack-eq{top:235px!important;left:2%!important}
+ #soundtrack .spotify-embed-wrap{width:100%!important;max-width:560px!important;margin:0 auto!important;padding:9px!important}
+ #soundtrack .spotify-embed-wrap iframe{height:300px!important}
+}
+@media(max-width:420px){
+ #soundtrack .spotify-embed-wrap iframe{height:260px!important}
+ #soundtrack .spotify-embed-label{font-size:7px!important}
+}
