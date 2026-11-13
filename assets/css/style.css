@@ -884,7 +884,7 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
 
 /* Vinyl-only Spotify control. The embed is an invisible audio transport, never UI. */
 #spotify-hidden-player,.spotify-hidden-player{display:block!important;position:fixed!important;left:-10000px!important;top:0!important;width:1px!important;height:1px!important;max-width:1px!important;max-height:1px!important;overflow:hidden!important;clip-path:inset(100%)!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;z-index:-1!important}
-#spotify-hidden-player iframe,.spotify-hidden-player iframe{display:block!important;width:1px!important;height:1px!important;border:0!important;opacity:0!important;visibility:hidden!important}
+#spotify-hidden-player iframe,.spotify-hidden-player iframe{display:block!important;width:280px!important;height:152px!important;border:0!important;opacity:0!important;visibility:hidden!important}
 #soundtrack.soundtrack-playing .soundtrack-record{animation:vinyl-continuous-spin 3.8s linear infinite!important}
 @keyframes vinyl-continuous-spin{to{transform:rotate(360deg)}}
 #soundtrack .soundtrack-play.is-playing .soundtrack-play-icon{width:14px!important;height:18px!important;border:0!important;margin:0!important;background:linear-gradient(to right,#090a0c 0 4px,transparent 4px 10px,#090a0c 10px 14px)!important}
