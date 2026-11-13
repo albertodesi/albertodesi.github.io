@@ -242,7 +242,6 @@
   </div>
   <div class="footer-meta"><span>RONCADE · IT · CET</span><span>© <span id="year"></span> ALBERTO.DESI</span></div>
 </footer>
-<div class="signature-close" aria-label="Handwritten signature of Alberto Desiderà"><img class="signature-draw" src="/assets/signature.svg" alt="Alberto Desiderà" width="467" height="116" loading="lazy"></div>
   <div class="mobile-menu" aria-hidden="true"><nav><a href="#about">About</a><a href="#expertise">Expertise</a><a href="#experience">Experience</a><a href="#contact">Contact</a><a href="#soundtrack">Playlist</a></nav><span>ALBERTO.DESI — DIGITAL THINKING</span></div>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -252,7 +251,7 @@
     const soundtrackPlay=document.querySelector('.soundtrack-play');
     const soundtrackSection=document.querySelector('#soundtrack');
     const spotifyMount=document.querySelector('#spotify-hidden-player');
-    const spotifyClientId='YOUR_SPOTIFY_CLIENT_ID';
+    const spotifyClientId='4928d0588014400fbe0bebf806d1f34b';
     const playlistUri='spotify:playlist:2BDxxVa5zZWtiHTncQdhWZ';
     const spotifyRedirectUri=window.location.origin+window.location.pathname;
     const spotifyScopes=['streaming','user-read-playback-state','user-modify-playback-state'];
@@ -277,7 +276,7 @@
       return spotifyBase64Url(digest);
     }
     async function spotifyAuthorize(){
-      if(spotifyClientId==='YOUR_SPOTIFY_CLIENT_ID'){
+      if(!spotifyClientId){
         soundtrackPlay.lastElementChild.textContent='SETUP NEEDED';
         console.warn('Add your Spotify Developer Client ID to enable playback.');
         return;
