@@ -261,21 +261,21 @@
         soundtrackSection.classList.remove('playlist-open', 'record-has-spun');
         soundtrackPlay.setAttribute('aria-expanded', 'false');
         spotifyPanel.setAttribute('aria-hidden', 'true');
-        soundtrackPlay.querySelector('[data-en]').textContent = lang === 'en' ? 'PLAY' : 'ASCOLTA';
+        soundtrackPlay.lastElementChild.textContent = 'PLAY';
         return;
       }
       if (soundtrackPlay.disabled) return;
       soundtrackPlay.disabled = true;
       soundtrackSection.classList.remove('playlist-open');
       soundtrackSection.classList.add('record-spinning');
-      soundtrackPlay.querySelector('[data-en]').textContent = lang === 'en' ? 'SPINNING' : 'GIRA...';
+      soundtrackPlay.lastElementChild.textContent = 'SPINNING';
       soundtrackRevealTimer = window.setTimeout(() => {
         soundtrackSection.classList.remove('record-spinning');
         soundtrackSection.classList.add('record-has-spun', 'playlist-open');
         soundtrackPlay.disabled = false;
         soundtrackPlay.setAttribute('aria-expanded', 'true');
         spotifyPanel.setAttribute('aria-hidden', 'false');
-        soundtrackPlay.querySelector('[data-en]').textContent = lang === 'en' ? 'CLOSE' : 'CHIUDI';
+        soundtrackPlay.lastElementChild.textContent = 'CLOSE';
         if (window.ScrollTrigger) ScrollTrigger.refresh();
       }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 80 : 1250);
     });
