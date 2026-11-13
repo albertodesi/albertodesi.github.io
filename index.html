@@ -248,38 +248,34 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script>
   (() => {
-    const body = document.body;
-    const soundtrackPlay = document.querySelector('.soundtrack-play');
-    const soundtrackSection = document.querySelector('#soundtrack');
-    const spotifyMount = document.querySelector('#spotify-hidden-player');
-    const playlistUri = 'spotify:playlist:2BDxxVa5zZWtiHTncQdhWZ';
-    let spotifyApi = null, spotifyController = null, spotifyReady = false, spotifyPlaying = false;
+    const body=document.body;
+    const soundtrackPlay=document.querySelector('.soundtrack-play');
+    const soundtrackSection=document.querySelector('#soundtrack');
+    const spotifyMount=document.querySelector('#spotify-hidden-player');
+    const playlistUri='spotify:playlist:2BDxxVa5zZWtiHTncQdhWZ';
+    let spotifyApi=null,spotifyController=null,spotifyReady=false,spotifyPlaying=false;
     function setSoundtrackState(playing){
-      spotifyPlaying = playing;
-      soundtrackSection?.classList.toggle('soundtrack-playing', playing);
-      soundtrackPlay?.classList.toggle('is-playing', playing);
-      soundtrackPlay?.setAttribute('aria-pressed', String(playing));
-      if(soundtrackPlay?.lastElementChild) soundtrackPlay.lastElementChild.textContent = playing ? 'PAUSE' : 'PLAY';
-      soundtrackPlay?.setAttribute('aria-label', playing ? 'Pause playlist' : 'Play playlist');
+      spotifyPlaying=playing;
+      soundtrackSection?.classList.toggle('soundtrack-playing',playing);
+      soundtrackPlay?.classList.toggle('is-playing',playing);
+      soundtrackPlay?.setAttribute('aria-pressed',String(playing));
+      if(soundtrackPlay?.lastElementChild)soundtrackPlay.lastElementChild.textContent=playing?'PAUSE':'PLAY';
+      soundtrackPlay?.setAttribute('aria-label',playing?'Pause playlist':'Play playlist');
     }
     function createHiddenSpotifyPlayer(){
-      if(!spotifyApi || !spotifyMount || spotifyController) return;
+      if(!spotifyApi||!spotifyMount||spotifyController)return;
       spotifyApi.createController(spotifyMount,{uri:playlistUri,width:1,height:1},controller=>{
         spotifyController=controller;
         controller.addListener('ready',()=>{spotifyReady=true;soundtrackPlay.disabled=false;soundtrackPlay.lastElementChild.textContent='PLAY';});
         controller.addListener('playback_update',event=>setSoundtrackState(!event.data.isPaused));
       });
     }
-    window.onSpotifyIframeApiReady = IFrameAPI => { spotifyApi=IFrameAPI; createHiddenSpotifyPlayer(); };
-    const spotifyScript=document.createElement('script');
-    spotifyScript.src='https://open.spotify.com/embed/iframe-api/v1';
-    spotifyScript.async=true;
-    document.body.appendChild(spotifyScript);
+    window.onSpotifyIframeApiReady=IFrameAPI=>{spotifyApi=IFrameAPI;createHiddenSpotifyPlayer();};
+    const spotifyScript=document.createElement('script');spotifyScript.src='https://open.spotify.com/embed/iframe-api/v1';spotifyScript.async=true;document.body.appendChild(spotifyScript);
     soundtrackPlay?.addEventListener('click',event=>{
       event.preventDefault();
-      if(!spotifyReady || !spotifyController){soundtrackPlay.lastElementChild.textContent='LOADING';return;}
-      if(spotifyPlaying) spotifyController.pause();
-      else spotifyController.play();
+      if(!spotifyReady||!spotifyController){soundtrackPlay.lastElementChild.textContent='LOADING';return;}
+      if(spotifyPlaying)spotifyController.pause();else spotifyController.play();
     });
     const lang = 'en';
     document.documentElement.lang = 'en';
