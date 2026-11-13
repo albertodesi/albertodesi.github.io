@@ -177,10 +177,13 @@
       gsap.utils.toArray('.about-copy p,.section-aside,.thinking-copy').forEach((el,i)=>gsap.from(el,{y:28,opacity:0,duration:.8,delay:i*.04,scrollTrigger:{trigger:el,start:'top 90%',once:true}}));
       gsap.from('.expertise-item',{y:45,opacity:0,stagger:.11,duration:.75,ease:'power3.out',scrollTrigger:{trigger:'.expertise-list',start:'top 82%',once:true}});
       gsap.from('.tech-cloud span',{y:18,opacity:0,stagger:.045,duration:.5,scrollTrigger:{trigger:'.tech-cloud',start:'top 92%',once:true}});
-      gsap.from('.timeline-item',{x:55,opacity:0,stagger:.18,duration:.85,ease:'power3.out',scrollTrigger:{trigger:'.timeline',start:'top 82%',once:true}});
+      gsap.from('.career-stop',{x:55,opacity:0,stagger:.16,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'.career-timeline',start:'top 82%',once:true}});
+      gsap.fromTo('.career-rail-fill',{scaleY:0},{scaleY:1,ease:'none',scrollTrigger:{trigger:'.career-timeline',start:'top 72%',end:'bottom 72%',scrub:.8}});
+      gsap.utils.toArray('.career-stop').forEach((stop,i)=>ScrollTrigger.create({trigger:stop,start:'top 68%',end:'bottom 38%',onEnter:()=>stop.classList.add('is-active'),onEnterBack:()=>stop.classList.add('is-active'),onLeave:()=>stop.classList.remove('is-active'),onLeaveBack:()=>stop.classList.remove('is-active')}));
+      gsap.from('.career-tags span',{y:12,opacity:0,stagger:.05,duration:.45,scrollTrigger:{trigger:'.career-timeline',start:'top 72%',once:true}});
 
 
-      gsap.from('.certifications span,.contact-meta span',{y:18,opacity:0,stagger:.07,duration:.6,scrollTrigger:{trigger:'.certifications,.contact-meta',start:'top 92%',once:true}});
+      gsap.from('.certifications span',{y:18,opacity:0,stagger:.07,duration:.6,scrollTrigger:{trigger:'.certifications',start:'top 92%',once:true}});
 
       document.querySelectorAll('.expertise-item,.contact-cta').forEach(el=>{el.addEventListener('mouseenter',()=>gsap.to(el,{y:-5,duration:.3,ease:'power2.out'}));el.addEventListener('mouseleave',()=>gsap.to(el,{y:0,duration:.45,ease:'power3.out'}));});
       ScrollTrigger.refresh();
