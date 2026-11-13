@@ -833,3 +833,20 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
 @media(prefers-reduced-motion:reduce){
  .ui-arrow-icon{transition:none!important}
 }
+
+/* Spotify playback stays visually hidden; the vinyl remains the only artwork */
+.spotify-hidden-player{
+  position:fixed!important;left:-10000px!important;top:0!important;
+  width:280px!important;height:152px!important;overflow:hidden!important;
+  opacity:0!important;pointer-events:none!important;z-index:-1!important;
+}
+.spotify-hidden-player iframe{
+  display:block!important;width:280px!important;height:152px!important;
+  border:0!important;opacity:0!important;pointer-events:none!important;
+}
+.soundtrack-play{position:relative!important;z-index:8!important;cursor:pointer!important}
+.soundtrack-play:disabled{opacity:.65!important;cursor:wait!important}
+#soundtrack.soundtrack-playing .soundtrack-record{animation-duration:3.8s!important}
+@media(prefers-reduced-motion:reduce){
+  #soundtrack.soundtrack-playing .soundtrack-record{animation:none!important}
+}
