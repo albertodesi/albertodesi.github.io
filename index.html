@@ -242,6 +242,7 @@
   </div>
   <div class="footer-meta"><span>RONCADE · IT · CET</span><span>© <span id="year"></span> ALBERTO.DESI</span></div>
 </footer>
+<div class="signature-close" aria-label="Handwritten signature of Alberto Desiderà"><img class="signature-draw" src="/assets/signature.svg" alt="Alberto Desiderà" width="467" height="116" loading="lazy"></div>
   <div class="mobile-menu" aria-hidden="true"><nav><a href="#about">About</a><a href="#expertise">Expertise</a><a href="#experience">Experience</a><a href="#contact">Contact</a><a href="#soundtrack">Playlist</a></nav><span>ALBERTO.DESI — DIGITAL THINKING</span></div>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -396,6 +397,17 @@
     }else{document.querySelector('.loader')?.remove();document.querySelectorAll('.reveal').forEach(el=>el.classList.add('is-visible'));}
     document.querySelectorAll('.magnetic').forEach(el=>{if(!matchMedia('(pointer:fine)').matches||reduced)return;el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;el.style.transform='translate('+x*.09+'px,'+y*.12+'px)';});el.addEventListener('pointerleave',()=>el.style.transform='');});
   })();
+    const signatureMark = document.querySelector('.signature-close');
+    if (signatureMark && 'IntersectionObserver' in window) {
+      signatureMark.classList.add('signature-pending');
+      const signatureObserver = new IntersectionObserver(entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+          signatureMark.classList.add('signature-animate');
+          signatureObserver.disconnect();
+        }
+      }, { threshold: 0.35 });
+      signatureObserver.observe(signatureMark);
+    }
   </script>
 </body>
 </html>
