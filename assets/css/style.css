@@ -795,3 +795,41 @@
 @media(prefers-reduced-motion:reduce){
  #soundtrack .soundtrack-record,#soundtrack .spotify-embed-wrap,#soundtrack .soundtrack-play{animation:none!important;transition:none!important}
 }
+
+/* Unified arrow icon system — inline SVG, identical rendering on desktop and mobile */
+.ui-arrow-icon{
+  display:inline-block!important;flex:0 0 22px!important;
+  width:22px!important;height:22px!important;overflow:visible!important;
+  vertical-align:middle!important;transform-origin:center!important;
+  color:currentColor!important;
+}
+.ui-arrow-icon path{
+  fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;
+  stroke-linecap:round!important;stroke-linejoin:round!important;
+}
+.ui-arrow-down{transform:rotate(90deg)!important}
+.hero-ctas .button-primary .ui-arrow-icon{color:#090a0c!important}
+.hero-ctas .text-link .ui-arrow-icon{color:var(--blue)!important}
+.inline-link .ui-arrow-icon{width:17px!important;height:17px!important;flex-basis:17px!important;color:var(--blue)!important}
+.inline-link{align-items:center!important;gap:12px!important}
+.contact-cta .contact-cta-icon{display:flex!important;align-items:center!important;justify-content:center!important;width:34px!important;height:34px!important}
+.contact-cta .ui-arrow-icon{width:30px!important;height:30px!important;flex-basis:30px!important;color:#fff!important}
+.soundtrack-open .soundtrack-open-icon{display:flex!important;align-items:center!important;justify-content:center!important}
+.soundtrack-open .ui-arrow-icon{width:18px!important;height:18px!important;flex-basis:18px!important;color:var(--orange)!important}
+.soundtrack-open:hover .ui-arrow-icon{color:#fff!important;transform:translate(2px,-2px)!important}
+a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-action:manipulation}
+.hero-ctas{position:relative!important;z-index:5!important}
+.hero-ctas a{position:relative!important;z-index:6!important;pointer-events:auto!important}
+#network-canvas{pointer-events:none!important}
+@media(max-width:760px){
+ .hero-ctas{display:flex!important;flex-wrap:wrap!important;align-items:flex-start!important;gap:18px 22px!important}
+ .hero-ctas .button{min-height:54px!important;justify-content:space-between!important;gap:18px!important}
+ .hero-ctas .ui-arrow-icon{width:20px!important;height:20px!important;flex-basis:20px!important}
+ .inline-link .ui-arrow-icon{width:17px!important;height:17px!important;flex-basis:17px!important}
+ .contact-cta .contact-cta-icon{width:30px!important;height:30px!important}
+ .contact-cta .ui-arrow-icon{width:27px!important;height:27px!important;flex-basis:27px!important}
+ .soundtrack-open .ui-arrow-icon{width:18px!important;height:18px!important;flex-basis:18px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .ui-arrow-icon{transition:none!important}
+}
