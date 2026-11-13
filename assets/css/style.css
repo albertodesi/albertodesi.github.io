@@ -243,3 +243,39 @@
 @media(max-width:760px){.soundtrack-section{padding:55px 6% 0!important}.soundtrack-hero{grid-template-columns:1fr!important;gap:8px!important;min-height:unset!important;padding:55px 0 30px!important}.soundtrack-copy h2{font-size:clamp(68px,15vw,104px)!important}.soundtrack-art{min-height:390px!important}.soundtrack-record{width:min(72vw,340px)!important}.soundtrack-orbit-a{width:82vw!important}.soundtrack-orbit-b{width:94vw!important}.soundtrack-sticker{right:5%!important;top:7%!important;width:70px!important;height:70px!important;font-size:10px!important}.soundtrack-eq{left:0!important;bottom:12%!important}.spotify-embed-wrap{margin-bottom:42px!important;padding:9px!important}.spotify-embed-wrap iframe{height:352px!important}.soundtrack-note{margin-top:35px!important;font-size:7px!important}.soundtrack-marquee{margin:0 -6vw!important}.site-footer{grid-template-columns:1fr auto!important;gap:22px!important;padding:25px 6%!important}.footer-brand{grid-column:1/-1!important}.site-footer .footer-social{justify-content:flex-start!important;gap:15px!important}.site-footer .footer-social a.social-icon{width:32px!important;height:32px!important}.site-footer .footer-social a.social-icon svg{width:23px!important;height:23px!important}.footer-meta{flex-direction:column!important;align-items:flex-end!important;gap:7px!important;text-align:right!important}}
 @media(max-width:420px){.site-footer{grid-template-columns:1fr!important}.footer-brand{grid-column:auto!important}.footer-meta{align-items:flex-start!important;text-align:left!important}.site-footer .footer-social{order:2!important}.soundtrack-topline>span:last-child{max-width:120px!important;text-align:right!important;line-height:1.5!important}.soundtrack-embed-label{font-size:7px!important}}
 @media(prefers-reduced-motion:reduce){.soundtrack-record,.soundtrack-orbit,.soundtrack-eq i,.soundtrack-marquee>div{animation:none!important}.soundtrack-open,.site-footer .footer-social a.social-icon{transition:none!important}}
+
+/* Fix: the legacy sticky intro must not overlap the career timeline */
+#experience .experience-intro-wide,
+#experience .experience-intro-wide.section-heading,
+#experience .experience-intro-wide .section-heading{
+  position:relative!important;
+  top:auto!important;
+  bottom:auto!important;
+  align-self:stretch!important;
+  z-index:1!important;
+}
+#experience .experience-intro-wide{
+  display:block!important;
+  width:100%!important;
+  max-width:940px!important;
+  margin:0 auto clamp(70px,10vw,140px)!important;
+  float:none!important;
+  clear:both!important;
+}
+#experience .experience-intro-wide .section-heading{
+  position:relative!important;
+  width:auto!important;
+  max-width:100%!important;
+  transform:none;
+}
+#experience .career-journey{
+  position:relative!important;
+  isolation:isolate!important;
+  clear:both!important;
+  z-index:0!important;
+}
+#experience .journey-entry{min-width:0!important}
+@media(max-width:760px){
+ #experience .experience-intro-wide{margin:0 0 58px!important;text-align:left!important}
+ #experience .experience-intro-wide .section-heading{font-size:clamp(48px,12vw,76px)!important}
+}
