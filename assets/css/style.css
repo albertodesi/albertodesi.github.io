@@ -911,3 +911,42 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
 .signature-close.signature-pending img{clip-path:inset(0 100% 0 0)}
 .signature-close.signature-animate img{animation:signature-write 2.8s linear both}
 @media(max-width:600px){.signature-close{padding:20px 7vw 38px!important}.signature-close img{width:min(390px,84vw)!important}}
+
+/* Hero visual refinement — softened portrait, restrained motion */
+.hero-visual{transform:none!important}
+.portrait-frame{
+  width:clamp(260px,30vw,430px)!important;
+  height:clamp(360px,42vw,540px)!important;
+  border-radius:22px!important;
+  border:1px solid rgba(243,242,237,.09)!important;
+  overflow:hidden!important;
+  transform:none!important;
+  box-shadow:0 24px 90px rgba(0,0,0,.34)!important;
+  isolation:isolate!important;
+}
+.portrait-frame img{
+  object-fit:cover!important;
+  object-position:center 28%!important;
+  filter:saturate(.88) contrast(1.015)!important;
+  transform:none!important;
+}
+.portrait-frame:after{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  border-radius:inherit!important;
+  pointer-events:none!important;
+  background:
+    radial-gradient(ellipse at center,rgba(9,10,12,0) 55%,rgba(9,10,12,.10) 76%,rgba(9,10,12,.62) 100%),
+    linear-gradient(180deg,rgba(9,10,12,.04),transparent 22%,transparent 72%,rgba(9,10,12,.28))!important;
+}
+.visual-orbit{opacity:.56!important}
+.orbit-two{opacity:.42!important}
+.visual-cross{opacity:.55!important}
+.orbit-node{box-shadow:0 0 12px currentColor!important}
+@media(max-width:760px){
+ .portrait-frame{width:min(76vw,350px)!important;height:auto!important;aspect-ratio:4/5!important;border-radius:18px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .portrait-frame,.hero-visual{transform:none!important;animation:none!important}
+}
