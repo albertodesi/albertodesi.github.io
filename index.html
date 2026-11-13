@@ -264,7 +264,7 @@
     }
     function createHiddenSpotifyPlayer(){
       if(!spotifyApi||!spotifyMount||spotifyController)return;
-      spotifyApi.createController(spotifyMount,{uri:playlistUri,width:1,height:1},controller=>{
+      spotifyApi.createController(spotifyMount,{uri:playlistUri,width:280,height:152},controller=>{
         spotifyController=controller;
         controller.addListener('ready',()=>{spotifyReady=true;soundtrackPlay.disabled=false;soundtrackPlay.lastElementChild.textContent='PLAY';});
         controller.addListener('playback_update',event=>setSoundtrackState(!event.data.isPaused));
