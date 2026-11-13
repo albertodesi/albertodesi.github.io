@@ -57,3 +57,14 @@
 .career-foundation .career-heading h3{font-size:clamp(19px,1.9vw,27px)}
 @media(max-width:900px){.experience-layout{grid-template-columns:1fr;gap:48px}.experience-intro{position:relative;top:auto}.experience-summary{max-width:620px}.career-timeline{max-width:720px}}
 @media(max-width:680px){.experience-layout{gap:35px}.career-timeline{padding-left:28px}.career-rail{left:6px}.career-node{left:-28px;width:13px;height:13px}.career-card{padding:19px 17px}.career-heading h3{font-size:25px}.career-meta{font-size:8px}.career-description{font-size:12px}}
+
+/* Social profiles + preserved legacy easter eggs */
+.footer-social{display:flex;align-items:center;justify-content:center;gap:clamp(20px,3vw,42px)}
+.footer-social a.social-icon{display:grid;place-items:center;width:42px;height:42px;color:#9299a4;transition:color .25s,transform .3s cubic-bezier(.2,.8,.2,1)}
+.footer-social a.social-icon svg{display:block;width:29px;height:29px;fill:currentColor}
+.footer-social a.social-icon:hover{color:var(--blue);transform:translateY(-5px) scale(1.08)}
+.footer-social a.social-icon:focus-visible{outline:1px solid var(--orange);outline-offset:5px;border-radius:50%}
+.legacy-easter-eggs{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;opacity:0;pointer-events:none}
+.legacy-easter-eggs .hidden-link{display:inline-block;width:1px;height:1px;color:inherit;cursor:text;text-decoration:none}
+@media(max-width:760px){.footer-social{justify-content:flex-start;gap:17px}.footer-social a.social-icon{width:34px;height:34px}.footer-social a.social-icon svg{width:25px;height:25px}}
+@media(max-width:420px){.footer-social{order:2;gap:18px}}
