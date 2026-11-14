@@ -1072,3 +1072,68 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
   #soundtrack .record-label-image:before,
   #soundtrack .record-label-image:after{animation:none!important}
 }
+
+
+/* Portrait — circular crop with feathered perimeter */
+.hero-visual .portrait-frame{
+  width:clamp(300px,31vw,455px)!important;
+  height:clamp(300px,31vw,455px)!important;
+  aspect-ratio:1!important;
+  border:0!important;
+  border-radius:50%!important;
+  overflow:hidden!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  filter:drop-shadow(0 24px 48px rgba(0,0,0,.3))!important;
+  -webkit-mask-image:radial-gradient(circle, #000 56%, rgba(0,0,0,.96) 66%, rgba(0,0,0,.66) 73%, transparent 79%)!important;
+  mask-image:radial-gradient(circle, #000 56%, rgba(0,0,0,.96) 66%, rgba(0,0,0,.66) 73%, transparent 79%)!important;
+  will-change:transform!important;
+}
+.hero-visual .portrait-frame img{
+  width:100%!important;height:100%!important;
+  object-fit:cover!important;object-position:center 30%!important;
+  border-radius:50%!important;
+  filter:saturate(.88) contrast(1.02)!important;
+}
+.hero-visual .portrait-frame:after{
+  inset:0!important;border-radius:50%!important;
+  background:radial-gradient(circle,transparent 56%,rgba(9,10,12,.04) 72%,rgba(9,10,12,.22) 100%)!important;
+}
+@media(max-width:760px){
+ .hero-visual .portrait-frame{width:min(78vw,340px)!important;height:min(78vw,340px)!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-visual .portrait-frame{transform:none!important;will-change:auto!important}
+}
+
+/* Vinyl label — clean artwork with restrained concentric rings behind it */
+#soundtrack .record-label-image{
+  width:60%!important;
+  overflow:visible!important;
+  isolation:isolate!important;
+  box-shadow:0 0 0 5px rgba(0,0,0,.55),0 0 24px rgba(43,112,255,.16)!important;
+}
+#soundtrack .record-label-image:before{
+  content:""!important;position:absolute!important;z-index:0!important;
+  inset:-10%!important;border:1px solid rgba(52,124,255,.32)!important;
+  border-radius:50%!important;
+  box-shadow:0 0 0 7px rgba(52,124,255,.035),inset 0 0 16px rgba(52,124,255,.07)!important;
+  background:transparent!important;filter:none!important;
+  animation:label-concentric-rotation 24s linear infinite!important;
+}
+#soundtrack .record-label-image:after{
+  content:""!important;position:absolute!important;z-index:0!important;
+  inset:-19%!important;border:1px solid rgba(255,116,47,.22)!important;
+  border-radius:50%!important;box-shadow:0 0 0 7px rgba(255,116,47,.025)!important;
+  animation:label-concentric-counter 34s linear infinite!important;
+}
+#soundtrack .record-label-image img{
+  position:relative!important;z-index:1!important;
+  display:block!important;width:100%!important;height:100%!important;
+  object-fit:cover!important;border-radius:50%!important;
+  box-shadow:0 0 0 1px rgba(255,255,255,.13)!important;
+}
+@media(max-width:760px){#soundtrack .record-label-image{width:60%!important}}
+@media(prefers-reduced-motion:reduce){
+ #soundtrack .record-label-image:before,#soundtrack .record-label-image:after{animation:none!important}
+}
