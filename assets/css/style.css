@@ -1169,3 +1169,31 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
 @media(prefers-reduced-motion:reduce){
  #soundtrack .record-label-image:before,#soundtrack .record-label-image:after{animation:none!important}
 }
+
+
+/* Functional vinyl motion — continuous rotation, independent of the Spotify link */
+#soundtrack .soundtrack-record{
+  animation:vinyl-record-rotation 22s linear infinite!important;
+  transform-origin:50% 50%!important;
+  will-change:transform!important;
+}
+@keyframes vinyl-record-rotation{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+#soundtrack .record-label-image:before{
+  animation:label-concentric-rotation 16s linear infinite!important;
+}
+#soundtrack .record-label-image:after{
+  animation:label-concentric-counter 25s linear infinite!important;
+}
+#soundtrack .soundtrack-play{
+  cursor:pointer!important;
+  pointer-events:auto!important;
+  z-index:10!important;
+}
+@media(prefers-reduced-motion:reduce){
+  #soundtrack .soundtrack-record,
+  #soundtrack .record-label-image:before,
+  #soundtrack .record-label-image:after{animation:none!important;will-change:auto!important}
+}
