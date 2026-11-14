@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/preview/pr-1/style.css?v=9">
+  <link rel="stylesheet" href="/preview/pr-1/style.css?v=10">
   <title>alberto.desi — Digital thinking. Human perspective.</title>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Alberto Desiderà","url":"https://alberto.desi/","jobTitle":"Sales Specialist","worksFor":{"@type":"Organization","name":"Arsenalia"},"sameAs":["https://www.linkedin.com/in/albertodesidera","https://github.com/albertodesi","https://www.instagram.com/albertodesi/"]}
@@ -217,6 +217,7 @@
           <div class="record-label-image"><img src="/assets/img/playlist-cover.svg" alt="Playlist cover: @albertodesi the selection" /></div>
         </div>
         <button class="soundtrack-play" type="button" aria-expanded="false" aria-label="Play or pause the playlist" aria-pressed="false"><span class="soundtrack-play-icon" aria-hidden="true"></span><span>PLAY</span></button>
+        <button class="soundtrack-next" type="button" aria-label="Play next song" title="Next song"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5v14l11-7L5 5Z"/><path d="M19 5v14"/></svg></button>
         <div class="soundtrack-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       </div>
     </div>
@@ -249,6 +250,7 @@
   (() => {
     const body=document.body;
     const soundtrackPlay=document.querySelector('.soundtrack-play');
+    const soundtrackNext=document.querySelector('.soundtrack-next');
     const soundtrackSection=document.querySelector('#soundtrack');
     const spotifyMount=document.querySelector('#spotify-hidden-player');
     const spotifyClientId='4928d0588014400fbe0bebf806d1f34b';
@@ -265,6 +267,7 @@
       soundtrackSection?.classList.toggle('soundtrack-playing',playing);
       soundtrackPlay?.classList.toggle('is-playing',playing);
       soundtrackPlay?.setAttribute('aria-pressed',String(playing));
+      if(soundtrackPlay?.querySelector('.soundtrack-play-icon'))soundtrackPlay.querySelector('.soundtrack-play-icon').classList.toggle('is-pause',playing);
       if(soundtrackPlay?.lastElementChild)soundtrackPlay.lastElementChild.textContent=playing?'PAUSE':'PLAY';
       soundtrackPlay?.setAttribute('aria-label',playing?'Pause playlist':'Play playlist');
     }
@@ -327,8 +330,8 @@
     function initSpotifyPlayer(){
       if(!window.Spotify||spotifyPlayer||!spotifyGet(spotifyStore.access))return;
       spotifyPlayer=new Spotify.Player({name:'ALBERTO.DESI — Vinyl',volume:.72,enableMediaSession:false,getOAuthToken:async cb=>{try{const token=await spotifyAccessToken();if(token)cb(token)}catch(error){console.error(error)}}});
-      spotifyPlayer.addListener('ready',({device_id})=>{spotifyDeviceId=device_id;spotifyReady=true;soundtrackPlay.disabled=false;soundtrackPlay.lastElementChild.textContent='PLAY';});
-      spotifyPlayer.addListener('not_ready',()=>{spotifyReady=false;spotifyDeviceId=null;setSoundtrackState(false);});
+      spotifyPlayer.addListener('ready',({device_id})=>{spotifyDeviceId=device_id;spotifyReady=true;soundtrackPlay.disabled=false;if(soundtrackNext)soundtrackNext.disabled=false;soundtrackPlay.lastElementChild.textContent='PLAY';});
+      spotifyPlayer.addListener('not_ready',()=>{spotifyReady=false;spotifyDeviceId=null;setSoundtrackState(false);if(soundtrackNext)soundtrackNext.disabled=true;});
       spotifyPlayer.addListener('player_state_changed',state=>{if(state)setSoundtrackState(!state.paused);});
       ['initialization_error','authentication_error','account_error','playback_error'].forEach(name=>spotifyPlayer.addListener(name,({message})=>{console.error('Spotify '+name+':',message);soundtrackPlay.lastElementChild.textContent=name==='account_error'?'PREMIUM REQUIRED':'RETRY';}));
       spotifyPlayer.addListener('autoplay_failed',()=>{soundtrackPlay.lastElementChild.textContent='TAP PLAY';});
@@ -341,7 +344,7 @@
       event.preventDefault();if(spotifyBusy)return;
       if(!spotifyGet(spotifyStore.access)){await spotifyAuthorize();return;}
       if(!spotifyReady||!spotifyPlayer||!spotifyDeviceId){soundtrackPlay.lastElementChild.textContent='CONNECTING';return;}
-      spotifyBusy=true;soundtrackPlay.disabled=true;
+      spotifyBusy=true;soundtrackPlay.disabled=true;if(soundtrackNext)soundtrackNext.disabled=true;
       try{
         await spotifyPlayer.activateElement();
         if(spotifyPlaying){await spotifyPlayer.pause();setSoundtrackState(false);}
@@ -354,7 +357,25 @@
       }catch(error){
         console.error('Spotify playback:',error);
         soundtrackPlay.lastElementChild.textContent=error.message.toLowerCase().includes('premium')?'PREMIUM REQUIRED':'TRY AGAIN';
-      }finally{spotifyBusy=false;soundtrackPlay.disabled=false;}
+      }finally{spotifyBusy=false;soundtrackPlay.disabled=false;if(soundtrackNext)soundtrackNext.disabled=false;}
+    });
+    soundtrackNext?.addEventListener('click',async event=>{
+      event.preventDefault();
+      if(spotifyBusy)return;
+      if(!spotifyGet(spotifyStore.access)){await spotifyAuthorize();return;}
+      if(!spotifyReady||!spotifyPlayer||!spotifyDeviceId){if(soundtrackPlay?.lastElementChild)soundtrackPlay.lastElementChild.textContent='CONNECTING';return;}
+      spotifyBusy=true;soundtrackNext.disabled=true;if(soundtrackPlay)soundtrackPlay.disabled=true;
+      try{
+        await spotifyPlayer.activateElement();
+        await spotifyApi('/me/player/shuffle?state=true&device_id='+encodeURIComponent(spotifyDeviceId),{method:'PUT'});
+        await spotifyPlayer.nextTrack();
+        setSoundtrackState(true);
+      }catch(error){
+        console.error('Spotify next track:',error);
+        if(soundtrackPlay?.lastElementChild)soundtrackPlay.lastElementChild.textContent='TRY AGAIN';
+      }finally{
+        spotifyBusy=false;soundtrackNext.disabled=false;if(soundtrackPlay)soundtrackPlay.disabled=false;
+      }
     });
     const lang = 'en';
     document.documentElement.lang = 'en';
