@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="title">
-  <title id="title">Spotify</title>
-  <circle cx="160" cy="160" r="112" fill="#1DB954"/>
-  <g fill="none" stroke="#07110b" stroke-linecap="round">
-    <path d="M91 123c47-14 100-8 140 15" stroke-width="15"/>
-    <path d="M101 158c39-11 83-6 117 13" stroke-width="13"/>
-    <path d="M111 190c30-8 63-4 89 10" stroke-width="11"/>
-  </g>
-</svg>
