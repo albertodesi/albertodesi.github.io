@@ -957,22 +957,10 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
 .soundtrack-play:disabled{opacity:.68!important;cursor:wait!important}
 
 
-/* Vinyl transport: play/pause and next-track controls */
-#soundtrack .soundtrack-play-icon.is-pause{
-  width:14px!important;height:18px!important;border:0!important;margin:0!important;
-  background:linear-gradient(90deg,#090a0c 0 4px,transparent 4px 10px,#090a0c 10px 14px)!important;
-}
-#soundtrack .soundtrack-next{
-  position:absolute!important;z-index:5!important;right:calc(2% + 102px)!important;top:calc(6% + 22px)!important;
-  width:44px!important;height:44px!important;border:1px solid rgba(244,243,239,.5)!important;border-radius:50%!important;
-  display:grid!important;place-items:center!important;background:rgba(9,10,12,.72)!important;color:#f4f3ef!important;
-  cursor:pointer!important;transition:transform .25s,border-color .25s,background .25s!important;
-}
-#soundtrack .soundtrack-next svg{width:18px!important;height:18px!important;fill:currentColor!important;stroke:currentColor!important;stroke-width:1.5!important;stroke-linejoin:round!important}
-#soundtrack .soundtrack-next:hover{transform:scale(1.1)!important;border-color:#ff742f!important;background:#ff742f!important;color:#090a0c!important}
-#soundtrack .soundtrack-next:disabled{opacity:.45!important;cursor:wait!important}
-#soundtrack .soundtrack-next:focus-visible{outline:2px solid #f4f3ef!important;outline-offset:4px!important}
-@media(max-width:700px){
-  #soundtrack .soundtrack-play{right:4%!important;top:3%!important;width:68px!important;height:68px!important}
-  #soundtrack .soundtrack-next{right:calc(4% + 78px)!important;top:calc(3% + 12px)!important;width:44px!important;height:44px!important}
-}
+
+
+/* Spotify is a direct link only — keep the vinyl CTA styled as a link */
+#soundtrack a.soundtrack-play{text-decoration:none!important}
+#soundtrack a.soundtrack-play .soundtrack-play-icon{flex:0 0 auto!important}
+#soundtrack a.soundtrack-play:hover{transform:scale(1.07)!important}
+#soundtrack a.soundtrack-play:focus-visible{outline:2px solid #f4f3ef!important;outline-offset:5px!important}
