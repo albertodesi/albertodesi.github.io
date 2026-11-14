@@ -964,3 +964,57 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
 #soundtrack a.soundtrack-play .soundtrack-play-icon{flex:0 0 auto!important}
 #soundtrack a.soundtrack-play:hover{transform:scale(1.07)!important}
 #soundtrack a.soundtrack-play:focus-visible{outline:2px solid #f4f3ef!important;outline-offset:5px!important}
+
+
+/* Soundtrack — editorial two-column composition, one clear Spotify action */
+#soundtrack.soundtrack-section{position:relative!important;overflow:hidden!important;padding:clamp(54px,6vw,92px) 6vw 0!important;background:radial-gradient(ellipse at 78% 42%,rgba(36,91,202,.15),transparent 38%),radial-gradient(ellipse at 12% 92%,rgba(255,116,47,.055),transparent 32%),#090a0c!important}
+#soundtrack .soundtrack-inner{width:100%!important;max-width:1600px!important;margin:0 auto!important}
+#soundtrack .soundtrack-topline{position:relative!important;z-index:4!important;display:flex!important;justify-content:space-between!important;align-items:center!important;gap:24px!important}
+#soundtrack .soundtrack-hero{display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(460px,.95fr)!important;align-items:center!important;gap:clamp(28px,5vw,88px)!important;min-height:0!important;padding:clamp(70px,8vw,126px) 0 clamp(54px,7vw,100px)!important}
+#soundtrack .soundtrack-copy{position:relative!important;z-index:3!important;width:100%!important;max-width:780px!important;min-width:0!important}
+#soundtrack .soundtrack-eyebrow{margin:0 0 28px!important;color:var(--orange,#ff742f)!important;font-family:var(--mono)!important;font-size:12px!important;letter-spacing:.2em!important}
+#soundtrack .soundtrack-copy h2{margin:0 0 28px!important;font-size:clamp(76px,7.25vw,126px)!important;line-height:.86!important;letter-spacing:-.085em!important;font-weight:700!important;white-space:normal!important}
+#soundtrack .soundtrack-copy h2 span,#soundtrack .soundtrack-copy h2 em{display:inline-block!important;white-space:nowrap!important}
+#soundtrack .soundtrack-copy h2 em{color:var(--blue,#347cff)!important;font-style:normal!important}
+#soundtrack .soundtrack-description{max-width:28em!important;margin:0!important;font-size:clamp(17px,1.35vw,21px)!important;line-height:1.8!important;color:rgba(238,240,246,.76)!important}
+#soundtrack .soundtrack-note{display:flex!important;flex-wrap:wrap!important;gap:24px!important;margin:32px 0 0!important;color:rgba(238,240,246,.42)!important;font-family:var(--mono)!important;font-size:9px!important;letter-spacing:.14em!important}
+#soundtrack .soundtrack-art{position:relative!important;isolation:isolate!important;display:grid!important;place-items:center!important;width:100%!important;min-width:0!important;height:clamp(480px,43vw,650px)!important;min-height:0!important;padding:0!important;overflow:visible!important}
+#soundtrack .soundtrack-record{position:relative!important;z-index:2!important;width:clamp(300px,26vw,430px)!important;max-width:82%!important;margin:0!important;aspect-ratio:1!important}
+#soundtrack .soundtrack-orbit{position:absolute!important;z-index:0!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;pointer-events:none!important}
+#soundtrack .soundtrack-orbit-a{width:min(112%,570px)!important;aspect-ratio:1!important}
+#soundtrack .soundtrack-orbit-b{width:min(128%,650px)!important;aspect-ratio:1!important}
+#soundtrack .soundtrack-play{position:absolute!important;z-index:5!important;top:9%!important;right:2%!important;width:82px!important;height:82px!important}
+#soundtrack .soundtrack-eq{position:absolute!important;z-index:3!important;left:12%!important;top:auto!important;bottom:9%!important}
+#soundtrack .soundtrack-marquee{position:relative!important;z-index:2!important}
+@media(max-width:1100px){
+ #soundtrack .soundtrack-hero{grid-template-columns:minmax(0,1fr) minmax(340px,.9fr)!important;gap:24px!important;padding:64px 0 56px!important}
+ #soundtrack .soundtrack-copy h2{font-size:clamp(68px,7.5vw,96px)!important}
+ #soundtrack .soundtrack-art{height:470px!important}
+ #soundtrack .soundtrack-record{width:clamp(270px,30vw,340px)!important}
+ #soundtrack .soundtrack-play{width:70px!important;height:70px!important;top:7%!important}
+}
+@media(max-width:760px){
+ #soundtrack.soundtrack-section{padding:46px 6% 0!important}
+ #soundtrack .soundtrack-topline{font-size:8px!important;gap:12px!important}
+ #soundtrack .soundtrack-topline>span:last-child{max-width:130px!important;text-align:right!important;line-height:1.5!important}
+ #soundtrack .soundtrack-hero{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:24px!important;padding:54px 0 34px!important}
+ #soundtrack .soundtrack-copy{max-width:none!important}
+ #soundtrack .soundtrack-eyebrow{font-size:10px!important;margin-bottom:20px!important}
+ #soundtrack .soundtrack-copy h2{font-size:clamp(58px,12.5vw,88px)!important;line-height:.9!important;margin-bottom:20px!important}
+ #soundtrack .soundtrack-description{font-size:15px!important;line-height:1.7!important;max-width:34em!important}
+ #soundtrack .soundtrack-note{margin-top:20px!important;gap:14px!important;font-size:7px!important}
+ #soundtrack .soundtrack-art{height:clamp(330px,90vw,430px)!important;min-height:0!important;padding:8px 0 0!important}
+ #soundtrack .soundtrack-record{width:min(68vw,290px)!important;max-width:290px!important}
+ #soundtrack .soundtrack-orbit-a{width:min(88vw,370px)!important}
+ #soundtrack .soundtrack-orbit-b{width:min(98vw,420px)!important}
+ #soundtrack .soundtrack-play{width:64px!important;height:64px!important;top:0!important;right:4%!important;font-size:8px!important}
+ #soundtrack .soundtrack-play-icon{border-top-width:7px!important;border-bottom-width:7px!important;border-left-width:11px!important}
+ #soundtrack .soundtrack-eq{left:4%!important;bottom:7%!important;top:auto!important;height:24px!important;gap:3px!important}
+ #soundtrack .soundtrack-eq i{width:2px!important}
+ #soundtrack .soundtrack-marquee{margin:0 -6vw!important}
+ #soundtrack .soundtrack-marquee>div{padding:17px 0!important;gap:20px!important}
+ #soundtrack .soundtrack-marquee span{font-size:clamp(19px,5.5vw,27px)!important}
+}
+@media(prefers-reduced-motion:reduce){
+ #soundtrack .soundtrack-marquee>div,#soundtrack .soundtrack-eq i{animation:none!important}
+}
