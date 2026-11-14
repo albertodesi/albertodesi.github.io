@@ -1319,3 +1319,82 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
   #soundtrack .soundtrack-orbit-a{width:96px!important}
   #soundtrack .soundtrack-orbit-b{width:110px!important}
 }
+
+
+/* Soundtrack pre-footer — restore a deliberate editorial hierarchy */
+#soundtrack.soundtrack-section{
+  padding:34px 5.5vw 30px!important;
+  min-height:0!important;
+  border-top:1px solid rgba(243,242,237,.13)!important;
+  background:radial-gradient(ellipse at 82% 52%,rgba(38,105,230,.08),transparent 31%),#090a0c!important;
+}
+#soundtrack .soundtrack-inner{max-width:1450px!important}
+#soundtrack .soundtrack-topline{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  margin:0 0 24px!important;
+  line-height:1.4!important;
+}
+#soundtrack .soundtrack-hero{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 250px!important;
+  align-items:center!important;
+  gap:48px!important;
+  min-height:0!important;
+  padding:0!important;
+}
+#soundtrack .soundtrack-copy{max-width:700px!important;min-width:0!important}
+#soundtrack .soundtrack-eyebrow{margin:0 0 10px!important;font-size:9px!important;letter-spacing:.18em!important}
+#soundtrack .soundtrack-copy h2{
+  display:block!important;
+  max-width:620px!important;
+  margin:0 0 12px!important;
+  font-size:clamp(38px,4.2vw,58px)!important;
+  line-height:.94!important;
+  letter-spacing:-.075em!important;
+}
+#soundtrack .soundtrack-copy h2 br{display:block!important}
+#soundtrack .soundtrack-copy h2 span,
+#soundtrack .soundtrack-copy h2 em{display:inline-block!important;white-space:normal!important}
+#soundtrack .soundtrack-description{
+  max-width:560px!important;
+  margin:0!important;
+  font-size:13px!important;
+  line-height:1.65!important;
+}
+#soundtrack .soundtrack-note{margin:14px 0 0!important;gap:18px!important;font-size:7px!important}
+#soundtrack .soundtrack-art{
+  width:250px!important;height:210px!important;min-height:0!important;
+  justify-self:center!important;overflow:visible!important;
+}
+#soundtrack .soundtrack-record{
+  width:164px!important;max-width:164px!important;
+  animation:vinyl-record-rotation 22s linear infinite!important;
+}
+#soundtrack .soundtrack-orbit-a{width:196px!important}
+#soundtrack .soundtrack-orbit-b{width:220px!important}
+#soundtrack .soundtrack-play{
+  width:56px!important;height:56px!important;
+  top:3px!important;right:2px!important;
+  font-size:7px!important;gap:4px!important;
+}
+#soundtrack .soundtrack-play-icon{
+  border-top-width:6px!important;border-bottom-width:6px!important;border-left-width:10px!important;
+}
+#soundtrack .soundtrack-eq{left:7px!important;bottom:3px!important;transform:scale(.68)!important;transform-origin:left bottom!important}
+#soundtrack .soundtrack-marquee{display:none!important}
+@media(max-width:760px){
+  #soundtrack.soundtrack-section{padding:26px 6% 24px!important}
+  #soundtrack .soundtrack-topline{margin-bottom:18px!important;font-size:7px!important}
+  #soundtrack .soundtrack-hero{grid-template-columns:1fr!important;gap:8px!important}
+  #soundtrack .soundtrack-copy h2{font-size:clamp(36px,9vw,48px)!important;line-height:.96!important}
+  #soundtrack .soundtrack-description{font-size:12px!important;max-width:34em!important}
+  #soundtrack .soundtrack-note{margin-top:10px!important}
+  #soundtrack .soundtrack-art{width:190px!important;height:160px!important;margin:0 auto!important}
+  #soundtrack .soundtrack-record{width:126px!important;max-width:126px!important}
+  #soundtrack .soundtrack-orbit-a{width:150px!important}
+  #soundtrack .soundtrack-orbit-b{width:170px!important}
+  #soundtrack .soundtrack-play{width:46px!important;height:46px!important;right:0!important;top:0!important}
+  #soundtrack .soundtrack-eq{display:none!important}
+}
