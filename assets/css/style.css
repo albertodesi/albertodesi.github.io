@@ -1137,3 +1137,35 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
 @media(prefers-reduced-motion:reduce){
  #soundtrack .record-label-image:before,#soundtrack .record-label-image:after{animation:none!important}
 }
+
+
+/* Final interaction fix: animate the portrait through a CSS variable (not GSAP transform) */
+.hero-visual .portrait-frame{
+  transform:rotate(var(--portrait-angle,0deg))!important;
+  transform-origin:50% 50%!important;
+  will-change:transform!important;
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-visual .portrait-frame{transform:none!important;will-change:auto!important}
+}
+
+/* Vinyl centre: two clear, slow orbit rings behind the artwork */
+#soundtrack .record-label-image{width:62%!important}
+#soundtrack .record-label-image:before{
+  inset:-17%!important;
+  border:1px solid rgba(52,124,255,.62)!important;
+  background:transparent!important;
+  box-shadow:0 0 0 5px rgba(52,124,255,.07),0 0 18px rgba(52,124,255,.15)!important;
+  filter:none!important;
+  animation:label-concentric-rotation 20s linear infinite!important;
+}
+#soundtrack .record-label-image:after{
+  inset:-30%!important;
+  border:1px solid rgba(255,116,47,.48)!important;
+  box-shadow:0 0 0 5px rgba(255,116,47,.045),0 0 18px rgba(255,116,47,.09)!important;
+  animation:label-concentric-counter 29s linear infinite!important;
+}
+@media(max-width:760px){#soundtrack .record-label-image{width:62%!important}}
+@media(prefers-reduced-motion:reduce){
+ #soundtrack .record-label-image:before,#soundtrack .record-label-image:after{animation:none!important}
+}
