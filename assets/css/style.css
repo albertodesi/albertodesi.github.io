@@ -1018,3 +1018,57 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
 @media(prefers-reduced-motion:reduce){
  #soundtrack .soundtrack-marquee>div,#soundtrack .soundtrack-eq i{animation:none!important}
 }
+
+
+/* Soundtrack centre label — larger artwork with rotating concentric halo */
+#soundtrack .record-label-image{
+  width:54%!important;
+  overflow:visible!important;
+  isolation:isolate!important;
+  box-shadow:0 0 0 6px rgba(0,0,0,.5),0 0 30px rgba(43,112,255,.24)!important;
+}
+#soundtrack .record-label-image:before{
+  content:""!important;
+  position:absolute!important;
+  z-index:-1!important;
+  inset:-19%!important;
+  border-radius:50%!important;
+  background:repeating-radial-gradient(circle,
+    transparent 0 7px,
+    rgba(52,124,255,.42) 8px 9px,
+    transparent 10px 15px,
+    rgba(255,116,47,.28) 16px 17px,
+    transparent 18px 24px)!important;
+  filter:drop-shadow(0 0 7px rgba(52,124,255,.22))!important;
+  animation:label-concentric-rotation 18s linear infinite!important;
+  pointer-events:none!important;
+}
+#soundtrack .record-label-image:after{
+  content:""!important;
+  position:absolute!important;
+  z-index:-1!important;
+  inset:-11%!important;
+  border:1px solid rgba(255,116,47,.55)!important;
+  border-radius:50%!important;
+  box-shadow:0 0 0 5px rgba(52,124,255,.08),0 0 0 11px rgba(52,124,255,.13)!important;
+  animation:label-concentric-counter 26s linear infinite!important;
+  pointer-events:none!important;
+}
+#soundtrack .record-label-image img{
+  position:relative!important;
+  z-index:1!important;
+  display:block!important;
+  width:100%!important;height:100%!important;
+  object-fit:cover!important;
+  border-radius:50%!important;
+  box-shadow:0 0 0 1px rgba(255,255,255,.16)!important;
+}
+@keyframes label-concentric-rotation{to{transform:rotate(360deg)}}
+@keyframes label-concentric-counter{to{transform:rotate(-360deg)}}
+@media(max-width:760px){
+  #soundtrack .record-label-image{width:54%!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #soundtrack .record-label-image:before,
+  #soundtrack .record-label-image:after{animation:none!important}
+}
