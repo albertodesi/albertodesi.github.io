@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/preview/pr-1/style.css?v=12">
+  <link rel="stylesheet" href="/preview/pr-1/style.css?v=15">
   <title>alberto.desi — Digital thinking. Human perspective.</title>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Alberto Desiderà","url":"https://alberto.desi/","jobTitle":"Sales Specialist","worksFor":{"@type":"Organization","name":"Arsenalia"},"sameAs":["https://www.linkedin.com/in/albertodesidera","https://github.com/albertodesi","https://www.instagram.com/albertodesi/"]}
@@ -294,6 +294,8 @@
         .from('.portrait-frame',{y:18,opacity:0,scale:.985,duration:.9,clearProps:'transform'},'-=.55')
         .from('.visual-label,.visual-coordinate,.visual-cross,.orbit-node',{opacity:0,stagger:.045,duration:.4},'-=.5')
         .from('.hero-bottom',{y:8,opacity:0,duration:.45},'-=.3');
+      // Subtle portrait rotation tied to the hero scroll progress.
+      gsap.fromTo('.portrait-frame',{rotation:-7},{rotation:7,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
       gsap.utils.toArray('.section-kicker').forEach(el=>gsap.from(el,{x:-35,opacity:0,duration:.7,scrollTrigger:{trigger:el,start:'top 92%',once:true}}));
       gsap.utils.toArray('.section-heading,.contact-title').forEach(el=>gsap.from(el,{y:65,opacity:0,clipPath:'inset(0 0 100% 0)',duration:1.05,ease:'power4.out',scrollTrigger:{trigger:el,start:'top 86%',once:true}}));
       gsap.utils.toArray('.about-copy p,.section-aside,.thinking-copy').forEach((el,i)=>gsap.from(el,{y:28,opacity:0,duration:.8,delay:i*.04,scrollTrigger:{trigger:el,start:'top 90%',once:true}}));
