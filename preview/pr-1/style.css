@@ -1197,3 +1197,125 @@ a[href^="#"],button{-webkit-tap-highlight-color:transparent!important;touch-acti
   #soundtrack .record-label-image:before,
   #soundtrack .record-label-image:after{animation:none!important;will-change:auto!important}
 }
+
+
+/* Soundtrack is a pre-footer signature, not a full-screen feature */
+#soundtrack.soundtrack-section{
+  padding:30px 5.5vw 26px!important;
+  min-height:0!important;
+  border-top:1px solid rgba(243,242,237,.12)!important;
+  background:linear-gradient(100deg,rgba(40,120,255,.055),transparent 48%),#090a0c!important;
+}
+#soundtrack .soundtrack-inner{max-width:1450px!important}
+#soundtrack .soundtrack-topline{
+  margin:0 0 18px!important;
+  font-size:8px!important;
+  opacity:.72!important;
+}
+#soundtrack .soundtrack-hero{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 230px!important;
+  align-items:center!important;
+  gap:30px!important;
+  min-height:0!important;
+  padding:0!important;
+}
+#soundtrack .soundtrack-copy{max-width:760px!important}
+#soundtrack .soundtrack-eyebrow{
+  font-size:9px!important;
+  letter-spacing:.16em!important;
+  margin:0 0 9px!important;
+}
+#soundtrack .soundtrack-copy h2{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:baseline!important;
+  gap:0 12px!important;
+  font-size:clamp(32px,3.7vw,52px)!important;
+  line-height:.98!important;
+  letter-spacing:-.075em!important;
+  margin:0 0 10px!important;
+}
+#soundtrack .soundtrack-copy h2 br{display:none!important}
+#soundtrack .soundtrack-copy h2 span,
+#soundtrack .soundtrack-copy h2 em{display:inline!important;white-space:normal!important}
+#soundtrack .soundtrack-description{
+  max-width:620px!important;
+  font-size:13px!important;
+  line-height:1.55!important;
+  margin:0!important;
+}
+#soundtrack .soundtrack-note{
+  margin:12px 0 0!important;
+  gap:16px!important;
+  font-size:7px!important;
+}
+#soundtrack .soundtrack-art{
+  height:190px!important;
+  min-height:0!important;
+  width:230px!important;
+  overflow:visible!important;
+}
+#soundtrack .soundtrack-record{
+  width:158px!important;
+  max-width:158px!important;
+  animation:vinyl-record-rotation 22s linear infinite!important;
+}
+#soundtrack .soundtrack-orbit-a{width:190px!important}
+#soundtrack .soundtrack-orbit-b{width:218px!important}
+#soundtrack .record-label-image{width:62%!important}
+#soundtrack .record-label-image:before{inset:-17%!important}
+#soundtrack .record-label-image:after{inset:-30%!important}
+#soundtrack .soundtrack-play{
+  width:54px!important;
+  height:54px!important;
+  top:2px!important;
+  right:0!important;
+  gap:4px!important;
+  font-size:7px!important;
+}
+#soundtrack .soundtrack-play-icon{
+  border-top-width:6px!important;
+  border-bottom-width:6px!important;
+  border-left-width:10px!important;
+}
+#soundtrack .soundtrack-eq{
+  left:0!important;
+  bottom:4px!important;
+  top:auto!important;
+  transform:scale(.65)!important;
+  transform-origin:left bottom!important;
+}
+#soundtrack .soundtrack-marquee{display:none!important}
+@media(max-width:760px){
+  #soundtrack.soundtrack-section{padding:26px 6% 22px!important}
+  #soundtrack .soundtrack-topline{margin-bottom:14px!important}
+  #soundtrack .soundtrack-hero{
+    grid-template-columns:minmax(0,1fr) 112px!important;
+    gap:10px!important;
+    align-items:center!important;
+  }
+  #soundtrack .soundtrack-copy h2{
+    display:block!important;
+    font-size:clamp(27px,7.5vw,38px)!important;
+    line-height:.98!important;
+    margin-bottom:9px!important;
+  }
+  #soundtrack .soundtrack-copy h2 br{display:block!important}
+  #soundtrack .soundtrack-description{font-size:11px!important;line-height:1.45!important}
+  #soundtrack .soundtrack-note{display:none!important}
+  #soundtrack .soundtrack-art{width:112px!important;height:132px!important}
+  #soundtrack .soundtrack-record{width:94px!important;max-width:94px!important}
+  #soundtrack .soundtrack-orbit-a{width:112px!important}
+  #soundtrack .soundtrack-orbit-b{width:128px!important}
+  #soundtrack .soundtrack-play{width:40px!important;height:40px!important;top:0!important;right:-2px!important;font-size:6px!important}
+  #soundtrack .soundtrack-play-icon{border-top-width:5px!important;border-bottom-width:5px!important;border-left-width:8px!important}
+  #soundtrack .soundtrack-eq{display:none!important}
+}
+@media(max-width:390px){
+  #soundtrack .soundtrack-hero{grid-template-columns:minmax(0,1fr) 94px!important}
+  #soundtrack .soundtrack-art{width:94px!important;height:112px!important}
+  #soundtrack .soundtrack-record{width:80px!important;max-width:80px!important}
+  #soundtrack .soundtrack-orbit-a{width:96px!important}
+  #soundtrack .soundtrack-orbit-b{width:110px!important}
+}
