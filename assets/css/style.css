@@ -272,3 +272,48 @@
   transform-origin:50% 50%!important;
   will-change:transform!important;
 }@media(prefers-reduced-motion:reduce){.hero-visual .portrait-frame{transform:none!important;will-change:auto!important}}
+
+
+/* Header alignment: desktop grid and centered mobile wordmark */
+@media (min-width: 901px) {
+  .site-header {
+    padding-left: 10vw;
+    padding-right: 5.5vw;
+  }
+
+  .site-header > .desktop-nav {
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 681px) and (max-width: 900px) {
+  .site-header {
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+
+  .site-header > .desktop-nav {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 680px) {
+  .site-header {
+    justify-content: center;
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+
+  .site-header > .wordmark {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  .site-header > .header-actions {
+    position: absolute;
+    right: 6%;
+    margin-left: 0;
+  }
+}
