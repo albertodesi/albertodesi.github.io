@@ -644,3 +644,14 @@ html{scroll-padding-top:16px!important}
     flex-shrink:0!important;
   }
 }
+
+
+/* HEADER — enforce a visible gap between navigation and theme switch */
+@media(min-width:681px){
+  .site-header .desktop-nav{
+    margin-right:clamp(36px,4vw,72px)!important;
+  }
+  .site-header .header-actions{
+    margin-left:0!important;
+  }
+}
