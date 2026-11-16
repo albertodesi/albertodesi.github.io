@@ -495,13 +495,7 @@ html,body{background:var(--paper)!important;color:var(--ink)!important}
 @media(max-width:600px){.education-heading{display:block!important}.education-heading h3{margin:14px 0 8px!important}.education-track article{min-height:0!important}.site-footer .footer-brand .wordmark{color:var(--ink)!important}}
 
 /* FINAL PASS — compact hero, restrained cursor, sticky navigation, consistent palette */
-.site-header{
- position:sticky!important;top:0!important;z-index:1000!important;
- background:var(--paper)!important;
- -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
-}
-html{scroll-padding-top:84px!important}
-#about,#expertise,#experience,#contact{scroll-margin-top:84px!important}
+
 .context-cursor.is-link{
  width:34px!important;height:34px!important;
  background:var(--signal)!important;border:1px solid var(--acid)!important;
@@ -548,36 +542,10 @@ html{scroll-padding-top:84px!important}
 #experience .education-track .education-degree{color:var(--signal)!important}
 #experience .education-track article>span{color:var(--signal)!important}
 .site-footer,.site-footer *{text-shadow:none!important}
-@media(max-width:760px){
- .site-header{position:sticky!important;top:0!important}
- #experience .education-track{grid-template-columns:1fr!important}
- .hero-bottom{margin-top:24px!important}
-}
+@media(max-width:760px){#experience .education-track{grid-template-columns:1fr!important}.hero-bottom{margin-top:24px!important}}
 @media(prefers-reduced-motion:reduce){.site-header{scroll-behavior:auto!important}}
 
 
-/* HEADER DECOUPLING — keep navigation outside scroll/section animation flow */
-.site-header{
-  position:absolute!important;
-  top:0!important;
-  left:0!important;
-  right:0!important;
-  z-index:40!important;
-  transform:none!important;
-  opacity:1!important;
-  filter:none!important;
-  animation:none!important;
-  transition:background-color .2s ease,border-color .2s ease!important;
-  -webkit-backdrop-filter:none!important;
-  backdrop-filter:none!important;
-  isolation:isolate!important;
-  will-change:auto!important;
-}
-html{scroll-padding-top:0!important}
-#about,#expertise,#experience,#contact{scroll-margin-top:24px!important}
-@media(max-width:760px){
-  .site-header{position:absolute!important;top:0!important}
-}
 
 
 /* HEADER — normal document flow, isolated from all scroll animations */
@@ -589,15 +557,12 @@ html{scroll-padding-top:0!important}
   opacity:1!important;
   filter:none!important;
   animation:none!important;
-  transition:background-color .2s ease,border-color .2s ease!important;
   -webkit-backdrop-filter:none!important;
   backdrop-filter:none!important;
   isolation:isolate!important;
   will-change:auto!important;
 }
-.hero{
-  padding-top:clamp(24px,3vh,40px)!important;
-}
+.hero{padding-top:clamp(24px,3vh,40px)!important}
 html{scroll-padding-top:16px!important}
 #about,#expertise,#experience,#contact{scroll-margin-top:16px!important}
 @media(max-width:600px){
