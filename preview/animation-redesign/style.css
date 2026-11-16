@@ -578,3 +578,30 @@ html{scroll-padding-top:0!important}
 @media(max-width:760px){
   .site-header{position:absolute!important;top:0!important}
 }
+
+
+/* HEADER — normal document flow, isolated from all scroll animations */
+.site-header{
+  position:relative!important;
+  inset:auto!important;
+  z-index:120!important;
+  transform:none!important;
+  opacity:1!important;
+  filter:none!important;
+  animation:none!important;
+  transition:background-color .2s ease,border-color .2s ease!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  isolation:isolate!important;
+  will-change:auto!important;
+}
+.hero{
+  padding-top:clamp(24px,3vh,40px)!important;
+}
+html{scroll-padding-top:16px!important}
+#about,#expertise,#experience,#contact{scroll-margin-top:16px!important}
+@media(max-width:600px){
+  .hero{padding-top:24px!important}
+  .menu-open .site-header{z-index:120!important}
+  .mobile-menu{z-index:110!important}
+}
