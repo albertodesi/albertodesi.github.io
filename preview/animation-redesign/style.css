@@ -633,3 +633,14 @@ html{scroll-padding-top:16px!important}
   .site-header .theme-toggle{min-width:36px!important;width:36px!important;padding:0!important}
   .site-header .theme-toggle-label{display:none!important}
 }
+
+
+/* HEADER — give the theme control its own breathing room */
+@media(min-width:681px){
+  .site-header .header-actions{
+    margin-left:clamp(28px,3.5vw,56px)!important;
+    padding-left:clamp(20px,2.4vw,36px)!important;
+    border-left:1px solid var(--gridline)!important;
+    flex-shrink:0!important;
+  }
+}
