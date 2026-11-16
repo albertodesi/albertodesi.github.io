@@ -570,3 +570,31 @@ html{scroll-padding-top:16px!important}
   .menu-open .site-header{z-index:120!important}
   .mobile-menu{z-index:110!important}
 }
+
+
+/* MANIFESTO — keep the full headline in view and reduce decorative tiles */
+@media(min-width:761px){
+  .manifesto-stage{
+    min-height:clamp(560px,78svh,760px)!important;
+    padding:7vh 4.2vw!important;
+  }
+  .manifesto-title{
+    font-size:clamp(58px,min(10.4vw,20svh),160px)!important;
+    line-height:.82!important;
+    max-width:100%!important;
+  }
+  .manifesto-shapes{
+    width:clamp(84px,13vw,200px)!important;
+    height:clamp(84px,13vw,200px)!important;
+  }
+  .manifesto-shapes i{
+    width:29%!important;
+    height:29%!important;
+  }
+  .manifesto-shapes i:nth-child(2),
+  .manifesto-shapes i:nth-child(4){left:38%!important}
+  .manifesto-shapes i:nth-child(5){left:76%!important}
+  .manifesto-shapes i:nth-child(3),
+  .manifesto-shapes i:nth-child(4),
+  .manifesto-shapes i:nth-child(5){top:38%!important}
+}
