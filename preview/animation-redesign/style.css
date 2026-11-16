@@ -655,3 +655,28 @@ html{scroll-padding-top:16px!important}
     margin-left:0!important;
   }
 }
+
+
+/* MANIFESTO — compact editorial band */
+.manifesto-stage{
+  min-height:clamp(420px,58svh,560px)!important;
+  padding:5vh 4.2vw!important;
+}
+.manifesto-title{
+  font-size:clamp(56px,9vw,145px)!important;
+  line-height:.82!important;
+}
+.manifesto-shapes{
+  width:clamp(88px,11vw,168px)!important;
+  height:clamp(88px,11vw,168px)!important;
+  top:12%!important;
+}
+.manifesto-note{bottom:6%!important}
+@media(max-width:760px){
+  .manifesto-stage{
+    min-height:440px!important;
+    padding:76px 6vw 68px!important;
+  }
+  .manifesto-title{font-size:clamp(48px,12.5vw,88px)!important}
+  .manifesto-shapes{width:clamp(82px,22vw,128px)!important;height:clamp(82px,22vw,128px)!important;top:14%!important}
+}
