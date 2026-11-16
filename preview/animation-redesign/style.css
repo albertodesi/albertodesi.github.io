@@ -680,3 +680,18 @@ html{scroll-padding-top:16px!important}
   .manifesto-title{font-size:clamp(48px,12.5vw,88px)!important}
   .manifesto-shapes{width:clamp(82px,22vw,128px)!important;height:clamp(82px,22vw,128px)!important;top:14%!important}
 }
+
+
+/* MANIFESTO — fill the pinned viewport, keep the headline visible from entry */
+.manifesto-stage{
+  min-height:100svh!important;
+  padding:8vh 4.2vw!important;
+}
+.manifesto-title{
+  font-size:clamp(56px,9vw,145px)!important;
+  line-height:.82!important;
+}
+@media(max-width:760px){
+  .manifesto-stage{min-height:100svh!important;padding:100px 6vw 90px!important}
+  .manifesto-title{font-size:clamp(48px,12.5vw,88px)!important}
+}
