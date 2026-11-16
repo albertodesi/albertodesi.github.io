@@ -343,3 +343,17 @@ html.has-custom-cursor,html.has-custom-cursor body,html.has-custom-cursor a,html
 @media(max-width:680px){.header-actions{right:6%;gap:8px}.theme-toggle{padding:8px}.context-cursor{display:none}}
 @media(hover:none),(pointer:coarse){.context-cursor{display:none!important}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.context-cursor{display:none!important}}
+
+/* Kinetic manifesto — a pinned typographic sequence */
+.manifesto-stage{min-height:100svh;position:relative;isolation:isolate;overflow:hidden;padding:9vh 4.2vw 8vh;background:var(--signal);color:#fff;display:flex;flex-direction:column;justify-content:center}
+.manifesto-meta{position:absolute;top:7vh;left:4.2vw;right:4.2vw;display:flex;justify-content:space-between;font:10px var(--mono);letter-spacing:.15em;color:rgba(255,255,255,.72);z-index:2}
+.manifesto-grid{position:absolute;inset:0 4.2vw;display:grid;grid-template-columns:repeat(12,1fr);pointer-events:none;z-index:-1}
+.manifesto-grid i{border-left:1px solid rgba(255,255,255,.22)}.manifesto-grid i:last-child{border-right:1px solid rgba(255,255,255,.22)}
+.manifesto-title{font-size:clamp(70px,14.8vw,230px);line-height:.76;letter-spacing:-.105em;font-weight:600;text-transform:uppercase;position:relative;z-index:2;margin:0;display:flex;flex-direction:column}
+.manifesto-title span{display:block;will-change:transform}.manifesto-title span:nth-child(2){padding-left:10vw}.manifesto-title span:nth-child(3){padding-left:25vw}.manifesto-title em{font-style:normal;color:var(--acid)}
+.manifesto-shapes{position:absolute;right:9vw;top:16%;width:clamp(100px,17vw,260px);height:clamp(100px,17vw,260px);z-index:1;pointer-events:none}
+.manifesto-shapes i{position:absolute;display:block;width:34%;height:34%;background:var(--acid);border:1px solid rgba(0,0,0,.4);transform-origin:center}
+.manifesto-shapes i:nth-child(1){left:0;top:0}.manifesto-shapes i:nth-child(2){left:42%;top:0;background:#111}.manifesto-shapes i:nth-child(3){left:0;top:42%;background:#fff}.manifesto-shapes i:nth-child(4){left:42%;top:42%;background:transparent;border:2px solid #fff}.manifesto-shapes i:nth-child(5){left:84%;top:42%;background:var(--acid)}
+.manifesto-note{position:absolute;right:4.2vw;bottom:8vh;font:10px/1.5 var(--mono);letter-spacing:.12em;text-align:right;color:rgba(255,255,255,.8)}
+@media(max-width:760px){.manifesto-stage{min-height:76svh;padding:110px 6vw 90px}.manifesto-title{font-size:clamp(58px,16vw,112px)}.manifesto-title span:nth-child(2){padding-left:4vw}.manifesto-title span:nth-child(3){padding-left:12vw}.manifesto-meta{left:6vw;right:6vw;top:38px;font-size:8px}.manifesto-shapes{right:8vw;top:18%;opacity:.55}.manifesto-note{right:6vw;bottom:38px;font-size:8px}}
+@media(prefers-reduced-motion:reduce){.manifesto-title span,.manifesto-shapes i{transform:none!important;opacity:1!important}}
