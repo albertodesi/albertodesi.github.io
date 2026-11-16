@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#090a0c">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff">
   <meta name="description" content="Alberto Desiderà — connecting business, technology and people to shape meaningful digital experiences.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Alberto Desiderà">
@@ -27,12 +27,12 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Alberto Desiderà","url":"https://albertodesidera.eu/","jobTitle":"Sales Specialist","worksFor":{"@type":"Organization","name":"Arsenalia"},"sameAs":["https://www.linkedin.com/in/albertodesidera","https://github.com/albertodesi","https://www.instagram.com/albertodesi/"]}
   </script>
-</head>
+<script>(()=>{const k='alberto-theme-mode',z='Europe/Rome',mode=()=>{try{return localStorage.getItem(k)||'auto'}catch(e){return'auto'}},theme=m=>{if(m!=='auto')return m;const p=new Intl.DateTimeFormat('en-GB',{timeZone:z,hour:'2-digit',hourCycle:'h23'}).formatToParts(new Date());const h=+(p.find(x=>x.type==='hour')?.value||12);return h>=7&&h<19?'light':'dark'},apply=()=>{const t=theme(mode());document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t};apply();window.__albertoTheme={apply,mode,theme}})();</script></head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
   <div class="loader" aria-hidden="true"><div class="loader-mark">ALBERTO DESIDERÀ</div><div class="loader-line"><i></i></div><span class="loader-note">LOADING PERSPECTIVES</span></div>
   <div class="scroll-progress" aria-hidden="true"></div>
-  <div class="cursor-dot" aria-hidden="true"></div><div class="cursor-ring" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div><div class="cursor-ring" aria-hidden="true"></div><div class="context-cursor" aria-hidden="true"><span class="cursor-word"></span><span class="cursor-arrow" aria-hidden="true"></span></div>
   <header class="site-header">
     <a class="wordmark" href="#top" aria-label="Alberto Desiderà home">ALBERTO DESIDERÀ</a>
     <nav class="desktop-nav" aria-label="Main navigation">
@@ -42,7 +42,7 @@
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </nav>
-    <div class="header-actions">
+    <div class="header-actions"><button class="theme-toggle" type="button" aria-label="Colour theme: auto. Activate to change theme."><span class="theme-toggle-icon" aria-hidden="true">◐</span><span class="theme-toggle-label">AUTO</span></button>
       <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
     </div>
   </header>
@@ -66,8 +66,7 @@
           <div class="visual-label label-bottom">HUMAN FIRST <span>·</span> SYSTEM THINKING</div>
         </div>
       </div>
-      <div class="hero-bottom"><span>SCROLL TO EXPLORE</span><div class="scroll-cue"><i></i></div><span>01 / 06</span></div>
-    </section>
+</section>
 
     <section class="content-section about-section section-shell" id="about">
       <div class="section-kicker reveal"><span>01 /</span><span>THE WAY I THINK</span></div>
@@ -82,6 +81,13 @@
 
     </section>
 
+<section class="manifesto-stage" aria-label="Design philosophy">
+  <div class="manifesto-meta"><span>02 / THE PRINCIPLE</span><span>CLARITY IS A CREATIVE ACT</span></div>
+  <div class="manifesto-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <h2 class="manifesto-title"><span>MAKE</span><span>COMPLEXITY</span><span><em>MOVE.</em></span></h2>
+  <div class="manifesto-shapes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <p class="manifesto-note">STRATEGY IS NOT A DECK.<br>IT IS MOMENTUM.</p>
+</section>
     <section class="expertise-section" id="expertise">
       <div class="section-shell content-section">
         <div class="section-kicker reveal"><span>02 /</span><span>AREAS OF EXPERTISE</span></div>
@@ -253,42 +259,10 @@
     if(finePointer&&canvas){canvas.addEventListener('pointermove',e=>{const r=canvas.getBoundingClientRect();pointer={x:e.clientX-r.left,y:e.clientY-r.top};});canvas.addEventListener('pointerleave',()=>pointer={x:-1000,y:-1000});}
     const cursor=document.querySelector('.cursor-dot'),ring=document.querySelector('.cursor-ring');
     if(finePointer&&!reduced&&window.gsap){const x=gsap.quickTo(ring,'x',{duration:.38,ease:'power3'}),y=gsap.quickTo(ring,'y',{duration:.38,ease:'power3'});addEventListener('pointermove',e=>{cursor.style.transform='translate3d('+e.clientX+'px,'+e.clientY+'px,0)';x(e.clientX);y(e.clientY);});document.querySelectorAll('a,button,.project-card,.expertise-item').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('cursor-ring-active'));el.addEventListener('mouseleave',()=>ring.classList.remove('cursor-ring-active'));});}
-    if(window.gsap&&window.ScrollTrigger&&!reduced){
-      gsap.registerPlugin(ScrollTrigger);
-      const intro=gsap.timeline({defaults:{ease:'power3.out'}});
-      intro.to('.loader-line i',{scaleX:1,duration:.55,ease:'power2.inOut'})
-        .to('.loader',{autoAlpha:0,duration:.45,onComplete:()=>document.querySelector('.loader')?.remove()},'-=.05')
-        .from('.hero-title .title-line > span',{y:34,opacity:0,stagger:.075,duration:.72,clearProps:'transform'},'-=.12')
-        .from('.hero-intro,.hero-ctas',{y:14,opacity:0,stagger:.09,duration:.62},'-=.35')
-        .from('.portrait-frame',{y:18,opacity:0,scale:.985,duration:.9,clearProps:'transform'},'-=.55')
-        .from('.visual-label,.visual-coordinate,.visual-cross,.orbit-node',{opacity:0,stagger:.045,duration:.4},'-=.5')
-        .from('.hero-bottom',{y:8,opacity:0,duration:.45},'-=.3');
-      // Subtle portrait rotation tied to the hero scroll progress.
-      gsap.fromTo('.portrait-frame',{'--portrait-angle':'-7deg'},{'--portrait-angle':'7deg',ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom 70%',scrub:1}});
-      gsap.utils.toArray('.section-kicker').forEach(el=>gsap.from(el,{x:-35,opacity:0,duration:.7,scrollTrigger:{trigger:el,start:'top 92%',once:true}}));
-      gsap.utils.toArray('.section-heading,.contact-title').forEach(el=>gsap.from(el,{y:65,opacity:0,clipPath:'inset(0 0 100% 0)',duration:1.05,ease:'power4.out',scrollTrigger:{trigger:el,start:'top 86%',once:true}}));
-      gsap.utils.toArray('.about-copy p,.section-aside,.thinking-copy').forEach((el,i)=>gsap.from(el,{y:28,opacity:0,duration:.8,delay:i*.04,scrollTrigger:{trigger:el,start:'top 90%',once:true}}));
-      gsap.from('.expertise-item',{y:45,opacity:0,stagger:.11,duration:.75,ease:'power3.out',scrollTrigger:{trigger:'.expertise-list',start:'top 82%',once:true}});
-      gsap.from('.tech-cloud span',{y:18,opacity:0,stagger:.045,duration:.5,scrollTrigger:{trigger:'.tech-cloud',start:'top 92%',once:true}});
-      gsap.from('.journey-entry',{x:(i)=>i%2===0?90:-90,y:65,opacity:0,stagger:.12,duration:1.05,ease:'power4.out',scrollTrigger:{trigger:'.career-journey',start:'top 78%',once:true}});
-      gsap.fromTo('.journey-spine-fill',{scaleY:0},{scaleY:1,ease:'none',scrollTrigger:{trigger:'.career-journey',start:'top 72%',end:'bottom 72%',scrub:1}});
-      gsap.utils.toArray('.journey-entry').forEach((entry,i)=>{
-        ScrollTrigger.create({trigger:entry,start:'top 66%',end:'bottom 38%',onEnter:()=>entry.classList.add('is-active'),onEnterBack:()=>entry.classList.add('is-active'),onLeave:()=>entry.classList.remove('is-active'),onLeaveBack:()=>entry.classList.remove('is-active')});
-        const panel=entry.querySelector('.journey-panel');
-        if(panel&&window.matchMedia('(min-width:761px)').matches){
-          gsap.to(panel,{y:()=>i%2===0?-18:18,ease:'none',scrollTrigger:{trigger:entry,start:'top bottom',end:'bottom top',scrub:1.2}});
-          gsap.from(panel.querySelectorAll('.journey-panel-top,.journey-panel h3,.journey-position,.journey-copy,.journey-tags'),{y:24,opacity:0,stagger:.07,duration:.7,ease:'power3.out',scrollTrigger:{trigger:entry,start:'top 78%',once:true}});
-        }
-      });
-      gsap.from('.education-track article',{y:45,opacity:0,stagger:.15,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.education-track',start:'top 82%',once:true}});
-      gsap.from('.education-heading h3',{x:-35,opacity:0,duration:.8,scrollTrigger:{trigger:'.education-heading',start:'top 88%',once:true}});
-      gsap.from('.certifications span',{y:18,opacity:0,stagger:.07,duration:.6,scrollTrigger:{trigger:'.certifications',start:'top 92%',once:true}});
-
-      document.querySelectorAll('.expertise-item,.contact-cta').forEach(el=>{el.addEventListener('mouseenter',()=>gsap.to(el,{y:-5,duration:.3,ease:'power2.out'}));el.addEventListener('mouseleave',()=>gsap.to(el,{y:0,duration:.45,ease:'power3.out'}));});
-      ScrollTrigger.refresh();
-    }else{document.querySelector('.loader')?.remove();document.querySelectorAll('.reveal').forEach(el=>el.classList.add('is-visible'));}
+    document.querySelector('.loader')?.remove();
+    document.querySelectorAll('.reveal').forEach(el=>el.classList.add('is-visible'));
     document.querySelectorAll('.magnetic').forEach(el=>{if(!matchMedia('(pointer:fine)').matches||reduced)return;el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;el.style.transform='translate('+x*.09+'px,'+y*.12+'px)';});el.addEventListener('pointerleave',()=>el.style.transform='');});
   })();
   </script>
-</body>
+<script src="/redesign.js" defer></script></body>
 </html>
