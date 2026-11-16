@@ -598,3 +598,38 @@ html{scroll-padding-top:16px!important}
   .manifesto-shapes i:nth-child(4),
   .manifesto-shapes i:nth-child(5){top:38%!important}
 }
+
+
+/* THEME SWITCH — clear day/night toggle */
+.site-header .theme-toggle{
+  min-width:88px!important;
+  min-height:36px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:8px!important;
+  padding:0 12px!important;
+  border:1px solid var(--ink)!important;
+  border-radius:999px!important;
+  background:transparent!important;
+  color:var(--ink)!important;
+  opacity:1!important;
+  cursor:pointer!important;
+  font:500 9px var(--mono)!important;
+  letter-spacing:.12em!important;
+  line-height:1!important;
+  transition:background-color .2s,border-color .2s,color .2s,transform .2s!important;
+}
+.site-header .theme-toggle:hover{
+  background:var(--ink)!important;
+  color:var(--paper)!important;
+  border-color:var(--ink)!important;
+  transform:translateY(-1px)!important;
+}
+.site-header .theme-toggle-icon{font-size:15px!important;line-height:1!important}
+.site-header .theme-toggle-label{display:inline!important;font-size:9px!important;letter-spacing:.12em!important}
+.site-header .theme-toggle:focus-visible{outline:2px solid var(--signal)!important;outline-offset:3px!important}
+@media(max-width:900px){
+  .site-header .theme-toggle{min-width:36px!important;width:36px!important;padding:0!important}
+  .site-header .theme-toggle-label{display:none!important}
+}
